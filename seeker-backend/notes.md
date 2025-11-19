@@ -1,0 +1,4 @@
+## Run script
+```shell
+parrall
+```

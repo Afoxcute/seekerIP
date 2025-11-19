@@ -1,0 +1,9 @@
+{
+  "ipAssetLocker": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+  "hbarToken": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+  "registry": "0x0000000000000000000000000000000000000000",
+  "ipAssetManager": "0xA20Ba7d4aD1bb40D46f3B9F8b4e722848C68d80a",
+  "arbitrationContract": "0x1B610c1B2626D920a1b8da877534594817F26Dc7",
+  "chainId": 1337,
+  "timestamp": 1758320790531
+}

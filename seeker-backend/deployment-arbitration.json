@@ -1,0 +1,33 @@
+{
+  "network": "hedera-testnet",
+  "chainId": 296,
+  "timestamp": "2025-09-20T02:59:07.007Z",
+  "deployer": "0x9404966338eB27aF420a952574d777598Bbb58c4",
+  "contracts": {
+    "IntellectualPropertyArbitration": {
+      "address": "0x60f4a0ee098394951bb704709842C92dF25038b2",
+      "transactionHash": "0xb79e3a71343c1a537399ac6b0f414387948f6cc4c04e9e8eb4840831a960d6d7",
+      "blockNumber": 25145536,
+      "gasUsed": "4327313",
+      "constructorArgs": {
+        "ipAssetManagerV2": "0xA20Ba7d4aD1bb40D46f3B9F8b4e722848C68d80a"
+      },
+      "configuration": {
+        "disputeBond": "1000000000",
+        "votingPeriod": "604800",
+        "challengePeriod": "259200",
+        "minStakeToVote": "10000000000",
+        "arbitratorFee": "5000000000",
+        "arbitrationToken": "0x0000000000000000000000000000000000000000"
+      }
+    }
+  },
+  "explorerUrl": "https://testnet.hashscan.io/address/0x60f4a0ee098394951bb704709842C92dF25038b2",
+  "verification": {
+    "contractName": "IntellectualPropertyArbitration",
+    "sourceCode": "See contracts/IntellectualPropertyArbitration.sol",
+    "constructorArguments": [
+      "0xA20Ba7d4aD1bb40D46f3B9F8b4e722848C68d80a"
+    ]
+  }
+}

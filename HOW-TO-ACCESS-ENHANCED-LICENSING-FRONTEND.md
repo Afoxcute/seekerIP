@@ -1,0 +1,146 @@
+# 📄 How to Access Enhanced Licensing Management in the Frontend
+
+## ✅ **Frontend Integration Complete**
+
+The Enhanced Licensing Management has been successfully integrated into the frontend and is now accessible through the main application navigation.
+
+## 🚀 **How to Access Enhanced Licensing Management**
+
+### **Step 1: Start the Frontend Application**
+```bash
+cd app
+npm run dev
+```
+
+### **Step 2: Open the Application**
+1. Open your browser to `http://localhost:5173`
+2. Connect your wallet using the "Connect Wallet" button
+
+### **Step 3: Navigate to Enhanced Licensing**
+1. Look for the navigation tabs at the top of the application
+2. Click on the **"📄 Enhanced Licensing"** tab
+3. The Enhanced Licensing Management interface will load
+
+## 🎯 **Navigation Structure**
+
+The application now has the following tabs:
+- **📊 Dashboard** - Main dashboard
+- **📝 Register IP Asset** - Register new IP assets
+- **📄 License** - Basic licensing (existing)
+- **💰 Revenue** - Revenue management
+- **🏛️ Arbitration** - Arbitration dashboard
+- **🔐 KYC Management** - KYC and compliance management
+- **📄 Enhanced Licensing** - **NEW!** Enhanced licensing management
+
+## 🎨 **Enhanced Licensing Interface**
+
+Once you click on the **"📄 Enhanced Licensing"** tab, you'll see:
+
+### **Tabbed Interface:**
+- **➕ Create License Terms** - Create enhanced license terms with geographic restrictions
+- **🎯 Grant License** - Grant licenses with comprehensive validation
+- **⚙️ Manage Licenses** - Revoke licenses and manage license status
+- **👁️ View Licenses** - View license terms and license holders
+
+### **Key Features Available:**
+- **License Type Selection**: Choose Exclusive, Non-Exclusive, or Sole licensing
+- **Geographic Restrictions**: Set country, region, or global restrictions
+- **Compliance Level Requirements**: Set minimum compliance levels
+- **Jurisdiction Management**: Select allowed/restricted jurisdictions
+- **KYC Requirements**: Toggle KYC requirements for licenses
+- **Real-time Validation**: Validate license grants before execution
+
+## 🔧 **Prerequisites**
+
+### **Before Using Enhanced Licensing:**
+
+1. **Deploy the EnhancedLicensingManager Contract**:
+   ```bash
+   cd seeker-backend
+   npx hardhat run scripts/deployEnhancedLicensingManager.cjs --network hedera_testnet
+   ```
+
+2. **Update Contract Addresses**:
+   - Update the contract address in `app/src/services/enhancedLicensingService.ts`
+   - Replace `"0x0000000000000000000000000000000000000000"` with the deployed address
+
+3. **Ensure Compliance System is Set Up**:
+   - The Enhanced Licensing Management integrates with the existing compliance system
+   - Make sure entities have compliance profiles before granting licenses
+
+## 📋 **Usage Workflow**
+
+### **1. Create License Terms**
+1. Go to **"➕ Create License Terms"** tab
+2. Fill in the required information:
+   - Asset ID
+   - License terms description
+   - Price and duration
+   - License type (Exclusive/Non-Exclusive/Sole)
+   - Geographic restrictions
+   - Compliance level requirements
+   - KYC requirements
+3. Click **"➕ Create License Terms"**
+
+### **2. Grant Licenses**
+1. Go to **"🎯 Grant License"** tab
+2. Fill in the required information:
+   - Asset ID
+   - License ID
+   - Licensee address
+   - Jurisdiction
+3. Click **"🎯 Grant License"**
+4. The system will validate compliance, geographic restrictions, and exclusivity
+
+### **3. Manage Licenses**
+1. Go to **"⚙️ Manage Licenses"** tab
+2. Enter License Token ID to revoke
+3. Provide revocation reason
+4. Click **"❌ Revoke License"**
+
+### **4. View Licenses**
+1. Go to **"👁️ View Licenses"** tab
+2. Enter License ID to view terms
+3. Enter Asset ID to view license holders
+4. Click **"🔍 Load"** buttons to view information
+
+## 🎉 **Features Available**
+
+### **✅ License Control**
+- **Exclusive Licensing**: Only one licensee allowed
+- **Non-Exclusive Licensing**: Multiple licensees allowed
+- **Sole Licensing**: Owner + one licensee allowed
+
+### **✅ Geographic Restrictions**
+- **No Restrictions**: Global licensing
+- **Country Level**: Country-specific restrictions
+- **Regional**: Regional restrictions (e.g., EU, US)
+- **Global**: Global restrictions with jurisdiction lists
+
+### **✅ Compliance Integration**
+- **Compliance Level Requirements**: Basic, Enhanced, Institutional
+- **KYC Requirements**: Optional KYC verification
+- **Compliance Validation**: Automatic compliance checking
+
+### **✅ Professional Interface**
+- **Tabbed Navigation**: Clean, intuitive interface
+- **Real-time Validation**: Immediate feedback
+- **Professional Display**: Clear license information
+- **Responsive Design**: Works on all devices
+
+## 🚨 **Important Notes**
+
+1. **Contract Deployment Required**: The EnhancedLicensingManager contract must be deployed before use
+2. **Compliance Integration**: Works with the existing compliance system
+3. **Wallet Connection**: Requires wallet connection for all operations
+4. **Owner Permissions**: Most operations require contract owner permissions
+
+## 🎯 **Next Steps**
+
+1. **Deploy Contract**: Deploy the EnhancedLicensingManager contract
+2. **Update Addresses**: Update contract addresses in frontend
+3. **Test Functionality**: Test license creation and management
+4. **Verify Restrictions**: Test geographic and exclusivity restrictions
+
+The Enhanced Licensing Management is now fully integrated and accessible through the frontend! 🎉
+

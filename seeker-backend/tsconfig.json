@@ -1,0 +1,25 @@
+{
+    "compilerOptions": {
+      "target": "esnext",
+      "allowJs": true,
+      "skipLibCheck": true,
+      "strict": true,
+      "forceConsistentCasingInFileNames": true,
+      "noEmit": true,
+      "esModuleInterop": true,
+      "module": "ESNext",
+      "moduleResolution": "node",
+      "resolveJsonModule": true,
+      "isolatedModules": true,
+      "noErrorTruncation": true,
+      "outDir": "./dist",
+      "declaration": true,
+      "allowImportingTsExtensions": true,
+      "moduleDetection": "force"
+    },
+    "include": ["./**/*.ts"],
+    "exclude": ["node_modules"],
+    "ts-node": {
+      "experimentalSpecifierResolution": "node"
+    }
+  }

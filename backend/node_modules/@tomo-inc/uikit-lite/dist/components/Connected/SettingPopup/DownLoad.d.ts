@@ -1,0 +1,2 @@
+declare const Download: () => import("react/jsx-runtime").JSX.Element;
+export default Download;

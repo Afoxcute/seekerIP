@@ -1,0 +1,7 @@
+-- AlterTable
+ALTER TABLE "hbar_token_balances" ALTER COLUMN "balance" SET DEFAULT '0',
+ALTER COLUMN "balance" SET DATA TYPE TEXT,
+ALTER COLUMN "totalMinted" SET DEFAULT '0',
+ALTER COLUMN "totalMinted" SET DATA TYPE TEXT,
+ALTER COLUMN "totalBurned" SET DEFAULT '0',
+ALTER COLUMN "totalBurned" SET DATA TYPE TEXT;

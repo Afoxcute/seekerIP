@@ -1,0 +1,440 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// IP Asset Manager Models
+model IPAsset {
+  id                String   @id @default(cuid())
+  contractAddress   String   // Contract address on Hedera
+  tokenId           BigInt   // ERC-1155 token ID
+  name              String
+  description       String
+  metadataURI       String
+  metadata          Json?    // Parsed metadata from URI
+  ipfsHash          String?
+  owner             String   // Ethereum address
+  royaltyPercentage Int      @default(0) // Basis points (100 = 1%)
+  isActive          Boolean  @default(true)
+  totalRevenue      BigInt   @default(0) @db.BigInt
+  licenseTokenId    BigInt?  @db.BigInt
+  royaltyTokenId    BigInt   @db.BigInt
+  // HTS KYC fields
+  htsTokenAddress   String?  // HTS token address for KYC enforcement
+  nftTokenId        BigInt?  // HTS NFT token ID
+  kycRequired       Boolean  @default(true) // Whether KYC is required for this asset
+  createdAt         DateTime @default(now())
+  lastModified      DateTime @updatedAt
+
+  // Relations
+  licenses          License[]
+  royalties         Royalty[]
+  payments          Payment[]
+  transactions      IPAssetTransaction[]
+  user              User?    @relation("UserIPAssets", fields: [owner], references: [address])
+  lock              IPAssetLock?
+  arbitrationCases  ArbitrationCase[]
+  kycStatuses       IPAssetKYCStatus[]
+
+  @@unique([contractAddress, tokenId])
+  @@map("ip_assets")
+}
+
+model License {
+  id              String   @id @default(cuid())
+  contractAddress String   // Contract address on Hedera
+  tokenId         BigInt   // ERC-1155 token ID
+  ipAssetId       String
+  terms           String
+  encryptedTerms  String?
+  price           BigInt
+  maxMints        BigInt
+  currentMints    BigInt   @default(0)
+  isActive        Boolean  @default(true)
+  validFrom       DateTime?
+  validUntil      DateTime?
+  licenseType     String   @default("standard") // commercial, personal, exclusive, etc.
+  createdAt       DateTime @default(now())
+
+  // Relations
+  ipAsset         IPAsset  @relation(fields: [ipAssetId], references: [id], onDelete: Cascade)
+  mints           LicenseMint[]
+
+  @@unique([contractAddress, tokenId])
+  @@map("licenses")
+}
+
+model LicenseMint {
+  id          String   @id @default(cuid())
+  licenseId   String
+  buyer       String   // Ethereum address
+  amount      BigInt
+  price       BigInt
+  transactionHash String
+  timestamp   DateTime @default(now())
+
+  // Relations
+  license     License  @relation(fields: [licenseId], references: [id], onDelete: Cascade)
+
+  @@map("license_mints")
+}
+
+model Royalty {
+  id              String   @id @default(cuid())
+  contractAddress String   // Contract address on Hedera
+  tokenId         BigInt   // ERC-1155 token ID
+  ipAssetId       String
+  totalRevenue    BigInt   @default(0)
+  totalRoyaltyTokens BigInt @default(10000) // 100% in basis points
+  createdAt       DateTime @default(now())
+
+  // Relations
+  ipAsset         IPAsset  @relation(fields: [ipAssetId], references: [id], onDelete: Cascade)
+  shares          RoyaltyShare[]
+  claims          RoyaltyClaim[]
+
+  @@unique([contractAddress, tokenId])
+  @@map("royalties")
+}
+
+model RoyaltyShare {
+  id          String   @id @default(cuid())
+  royaltyId   String
+  holder      String   // Ethereum address
+  shares      BigInt   // Number of shares held
+  lastClaimed BigInt   @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  royalty     Royalty  @relation(fields: [royaltyId], references: [id], onDelete: Cascade)
+
+  @@unique([royaltyId, holder])
+  @@map("royalty_shares")
+}
+
+model RoyaltyClaim {
+  id          String   @id @default(cuid())
+  royaltyId   String
+  claimant    String   // Ethereum address
+  amount      BigInt
+  transactionHash String
+  timestamp   DateTime @default(now())
+
+  // Relations
+  royalty     Royalty  @relation(fields: [royaltyId], references: [id], onDelete: Cascade)
+
+  @@map("royalty_claims")
+}
+
+model Payment {
+  id          String   @id @default(cuid())
+  ipAssetId   String
+  payer       String   // Ethereum address
+  amount      BigInt
+  description String?
+  transactionHash String
+  isProcessed Boolean  @default(true)
+  timestamp   DateTime @default(now())
+
+  // Relations
+  ipAsset     IPAsset  @relation(fields: [ipAssetId], references: [id], onDelete: Cascade)
+
+  @@map("payments")
+}
+
+model IPAssetTransaction {
+  id          String   @id @default(cuid())
+  ipAssetId   String
+  transactionHash String @unique
+  from        String   // Ethereum address
+  to          String?  // Ethereum address (for transfers)
+  type        String   // register, transfer, license_mint, royalty_claim, payment
+  amount      BigInt?
+  metadata    Json?    // Additional transaction data
+  timestamp   DateTime @default(now())
+
+  // Relations
+  ipAsset     IPAsset  @relation(fields: [ipAssetId], references: [id], onDelete: Cascade)
+
+  @@map("ip_asset_transactions")
+}
+
+// Platform Configuration
+model PlatformConfig {
+  id                    String   @id @default(cuid())
+  platformFeePercentage Int      @default(250) // 2.5% in basis points
+  platformFeeCollector  String   // Ethereum address
+  updatedAt             DateTime @updatedAt
+
+  @@map("platform_config")
+}
+
+// User Management
+model User {
+  id          String   @id @default(cuid())
+  address     String   @unique // Ethereum address
+  kycStatus   String   @default("pending") // pending, approved, rejected
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  ipAssets    IPAsset[] @relation("UserIPAssets")
+
+  @@map("users")
+}
+
+// IP Asset Locker Models
+model IPAssetLock {
+  id              String   @id @default(cuid())
+  ipAssetId       String   @unique
+  owner           String   // Ethereum address
+  hbarAmount      BigInt   @db.BigInt // Amount of HBAR locked
+  lockTime        DateTime @default(now())
+  status          String   @default("locked") // locked, unlocked, in_arbitration
+  hbarTokenAmount BigInt   @default(0) @db.BigInt // Amount of HBAR equivalent tokens minted
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  // Relations
+  ipAsset         IPAsset  @relation(fields: [ipAssetId], references: [id], onDelete: Cascade)
+  unlockEvents    IPAssetUnlockEvent[]
+
+  @@map("ip_asset_locks")
+}
+
+model IPAssetUnlockEvent {
+  id              String   @id @default(cuid())
+  lockId          String
+  hbarAmount      BigInt   // Amount unlocked
+  transactionHash String
+  timestamp       DateTime @default(now())
+
+  // Relations
+  lock            IPAssetLock @relation(fields: [lockId], references: [id], onDelete: Cascade)
+
+  @@map("ip_asset_unlock_events")
+}
+
+// HBAR Equivalent Token Models
+model HBARTokenBalance {
+  id              String   @id @default(cuid())
+  owner           String   // Ethereum address
+  balance         String   @default("0") // Store as string to handle large values
+  totalMinted     String   @default("0") // Store as string to handle large values
+  totalBurned     String   @default("0") // Store as string to handle large values
+  lastUpdated     DateTime @updatedAt
+
+  @@unique([owner])
+  @@map("hbar_token_balances")
+}
+
+model HBARTokenTransaction {
+  id              String   @id @default(cuid())
+  owner           String   // Ethereum address
+  amount          BigInt   @db.BigInt
+  type            String   // mint, burn, transfer
+  transactionHash String
+  blockNumber     BigInt   @db.BigInt
+  timestamp       DateTime @default(now())
+
+  @@map("hbar_token_transactions")
+}
+
+// Intellectual Property Arbitration Models
+model ArbitrationCase {
+  id                    String   @id @default(cuid())
+  ipAssetId             String
+  disputeId             BigInt   @unique
+  complainant           String   // Ethereum address
+  respondent            String   // Ethereum address
+  disputeBond           BigInt
+  votingPeriod          BigInt
+  challengePeriod       BigInt
+  minStakeToVote        BigInt
+  arbitratorFee         BigInt
+  arbitrationToken      String   // Token address for arbitration fees
+  status                String   @default("pending") // pending, active, resolved, cancelled
+  createdAt             DateTime @default(now())
+  resolvedAt            DateTime?
+  result                String?  // complainant_wins, respondent_wins, no_decision
+
+  // Relations
+  ipAsset               IPAsset  @relation(fields: [ipAssetId], references: [id], onDelete: Cascade)
+  votes                 ArbitrationVote[]
+  evidence              ArbitrationEvidence[]
+
+  @@map("arbitration_cases")
+}
+
+model ArbitrationVote {
+  id              String   @id @default(cuid())
+  caseId          String
+  voter           String   // Ethereum address
+  vote            String   // complainant, respondent, abstain
+  stake           BigInt   // Amount staked for voting
+  transactionHash String
+  timestamp       DateTime @default(now())
+
+  // Relations
+  case            ArbitrationCase @relation(fields: [caseId], references: [id], onDelete: Cascade)
+
+  @@unique([caseId, voter])
+  @@map("arbitration_votes")
+}
+
+model ArbitrationEvidence {
+  id              String   @id @default(cuid())
+  caseId          String
+  submitter       String   // Ethereum address
+  evidenceType    String   // document, image, video, text
+  evidenceData    String   // IPFS hash or direct data
+  description     String?
+  transactionHash String
+  timestamp       DateTime @default(now())
+
+  // Relations
+  case            ArbitrationCase @relation(fields: [caseId], references: [id], onDelete: Cascade)
+
+  @@map("arbitration_evidence")
+}
+
+// Token Asset Manager Models
+model TokenizedAsset {
+  id              String   @id @default(cuid())
+  contractAddress String   @unique
+  tokenId         BigInt   @unique
+  name            String
+  symbol          String
+  totalSupply     BigInt   @default(0)
+  decimals        Int      @default(18)
+  owner           String   // Ethereum address
+  isActive        Boolean  @default(true)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  // Relations
+  transfers       TokenizedAssetTransfer[]
+
+  @@map("tokenized_assets")
+}
+
+model TokenizedAssetTransfer {
+  id              String   @id @default(cuid())
+  assetId         String
+  from            String   // Ethereum address
+  to              String   // Ethereum address
+  amount          BigInt
+  transactionHash String
+  blockNumber     BigInt
+  timestamp       DateTime @default(now())
+
+  // Relations
+  asset           TokenizedAsset @relation(fields: [assetId], references: [id], onDelete: Cascade)
+
+  @@map("tokenized_asset_transfers")
+}
+
+// Contract State Tracking
+model ContractState {
+  id              String   @id @default(cuid())
+  contractAddress String   @unique
+  contractName    String
+  lastProcessedBlock BigInt @default(0)
+  isActive        Boolean  @default(true)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@map("contract_states")
+}
+
+// Event Processing Queue
+model EventQueue {
+  id              String   @id @default(cuid())
+  contractAddress String
+  eventName       String
+  transactionHash String
+  blockNumber     BigInt
+  logIndex        Int
+  eventData       Json
+  processed       Boolean  @default(false)
+  retryCount      Int      @default(0)
+  errorMessage    String?
+  createdAt       DateTime @default(now())
+  processedAt     DateTime?
+
+  @@unique([transactionHash, logIndex])
+  @@map("event_queue")
+}
+
+// Legacy tables (keeping only essential ones)
+model Asset {
+  token     String   @id @unique
+  name      String   @unique
+  symbol    String   @unique
+  timestamp DateTime @default(now())
+
+  @@map("assets")
+}
+
+model KYC {
+  account String @id @unique
+  token   String
+  status  String @default("pending")
+
+  @@map("kyc")
+}
+
+// HTS KYC Management Models
+model IPAssetKYCStatus {
+  id              String   @id @default(cuid())
+  ipAssetId       String
+  account         String   // Ethereum address
+  status          String   @default("pending") // pending, granted, revoked
+  grantedAt       DateTime?
+  revokedAt       DateTime?
+  transactionHash String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  // Relations
+  ipAsset         IPAsset  @relation(fields: [ipAssetId], references: [id], onDelete: Cascade)
+
+  @@unique([ipAssetId, account])
+  @@map("ip_asset_kyc_status")
+}
+
+model HTSKYCKey {
+  id              String   @id @default(cuid())
+  contractAddress String   // IPAssetHTSKYC contract address
+  keyType         String   // SUPPLY, ADMIN, KYC
+  keyValue        String   // The actual key value
+  isActive        Boolean  @default(true)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@unique([contractAddress, keyType])
+  @@map("hts_kyc_keys")
+}
+
+model HTSKYCEvent {
+  id              String   @id @default(cuid())
+  contractAddress String   // IPAssetHTSKYC contract address
+  eventType       String   // KYCGranted, KYCRevoked, KYCKeyUpdated
+  account         String?  // Ethereum address (for grant/revoke events)
+  keyValue        String?  // Key value (for key update events)
+  transactionHash String
+  blockNumber     BigInt
+  logIndex        Int
+  timestamp       DateTime @default(now())
+
+  @@unique([transactionHash, logIndex])
+  @@map("hts_kyc_events")
+}

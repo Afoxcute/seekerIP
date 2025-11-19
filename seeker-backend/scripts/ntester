@@ -1,0 +1,56 @@
+#!/bin/bash
+
+# Check if tsx is installed
+if ! command -v tsx &> /dev/null; then
+    echo "Error: tsx is not installed."
+    echo "Please install it using: npm install -g tsx"
+    exit 1
+fi
+
+# Set default directory to current directory if not specified
+TEST_DIR="${1:-.}"
+
+echo "Looking for spec files in $TEST_DIR..."
+
+# Find all spec.ts files recursively
+SPEC_FILES=$(find "$TEST_DIR" -type f -name "*.spec.ts")
+
+# Check if any spec files were found
+if [ -z "$SPEC_FILES" ]; then
+    echo "No spec files found matching the pattern **/*.spec.ts"
+    exit 0
+fi
+
+# Count the number of files found
+NUM_FILES=$(echo "$SPEC_FILES" | wc -l)
+echo "Found $NUM_FILES spec files."
+
+# Run each spec file with tsx
+echo "Running tests..."
+echo "----------------------------------------"
+
+EXIT_CODE=0
+for file in $SPEC_FILES; do
+    echo "Running: $file"
+    tsx "$file"
+    
+    # Store the exit code of the last command
+    LAST_EXIT_CODE=$?
+    
+    # If any test fails, mark the overall run as failed
+    if [ $LAST_EXIT_CODE -ne 0 ]; then
+        EXIT_CODE=1
+        echo "❌ Failed: $file"
+    else
+        echo "✅ Passed: $file"
+    fi
+    echo "----------------------------------------"
+done
+
+if [ $EXIT_CODE -eq 0 ]; then
+    echo "All tests passed successfully!"
+else
+    echo "Some tests failed. Please check the output above."
+fi
+
+exit $EXIT_CODE

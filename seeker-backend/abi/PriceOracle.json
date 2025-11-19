@@ -1,0 +1,111 @@
+{
+  "abi": [
+    {
+      "inputs": [],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "tokenId",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "uint64",
+          "name": "price",
+          "type": "uint64"
+        }
+      ],
+      "name": "PriceUpdate",
+      "type": "event"
+    },
+    {
+      "inputs": [],
+      "name": "admin",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "denominator",
+      "outputs": [
+        {
+          "internalType": "uint64",
+          "name": "",
+          "type": "uint64"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "tokenId",
+          "type": "address"
+        }
+      ],
+      "name": "getPrice",
+      "outputs": [
+        {
+          "internalType": "uint64",
+          "name": "",
+          "type": "uint64"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "prices",
+      "outputs": [
+        {
+          "internalType": "uint64",
+          "name": "",
+          "type": "uint64"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "tokenId",
+          "type": "address"
+        },
+        {
+          "internalType": "uint64",
+          "name": "price",
+          "type": "uint64"
+        }
+      ],
+      "name": "updatePrice",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "bin": "60806040525f8054600160a01b600160e01b031916613d0960a61b1790553480156027575f5ffd5b505f80546001600160a01b031916331790556102a6806100465f395ff3fe608060405234801561000f575f5ffd5b5060043610610055575f3560e01c806341976e09146100595780637df660a5146100a957806396ce0795146100be578063cfed246b146100d8578063f851a44014610101575b5f5ffd5b61008b61006736600461020f565b6001600160a01b03165f9081526001602052604090205467ffffffffffffffff1690565b60405167ffffffffffffffff90911681526020015b60405180910390f35b6100bc6100b736600461022f565b61012b565b005b5f5461008b90600160a01b900467ffffffffffffffff1681565b61008b6100e636600461020f565b60016020525f908152604090205467ffffffffffffffff1681565b5f54610113906001600160a01b031681565b6040516001600160a01b0390911681526020016100a0565b5f546001600160a01b031633146101925760405162461bcd60e51b815260206004820152602160248201527f4f6e6c792061646d696e2063616e2063616c6c20746869732066756e6374696f6044820152603760f91b606482015260840160405180910390fd5b6001600160a01b0382165f81815260016020526040808220805467ffffffffffffffff191667ffffffffffffffff861690811790915590519092917f4e8a1506f0160e5a8f035492450562e630d692809144b66e2001566a9139daad91a35050565b80356001600160a01b038116811461020a575f5ffd5b919050565b5f6020828403121561021f575f5ffd5b610228826101f4565b9392505050565b5f5f60408385031215610240575f5ffd5b610249836101f4565b9150602083013567ffffffffffffffff81168114610265575f5ffd5b80915050925092905056fea26469706673582212206bb7ec21796d58589cc8b519a472f642095f6246431a830b3118b6ed72eebc9764736f6c634300081d0033"
+}

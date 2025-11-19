@@ -1,0 +1,2437 @@
+{
+  "_format": "hh-sol-artifact-1",
+  "contractName": "SafeViewOperations",
+  "sourceName": "contracts/system-contracts/hedera-token-service/safe-hts/SafeViewOperations.sol",
+  "abi": [
+    {
+      "inputs": [],
+      "name": "AllowanceFailed",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "GetApprovedFailed",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "GetFungibleTokenInfoFailed",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "GetNonFungibleTokenInfoFailed",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "GetTokenCustomFeesFailed",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "GetTokenDefaultFreezeStatusFailed",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "GetTokenDefaultKYCStatusFailed",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "GetTokenExpiryInfoFailed",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "GetTokenInfoFailed",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "GetTokenKeyFailed",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "GetTokenTypeFailed",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "IsApprovedForAllFailed",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "IsFrozenFailed",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "IsKYCGrantedFailed",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "IsTokenFailed",
+      "type": "error"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "Allowance",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "GetApproved",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "components": [
+            {
+              "components": [
+                {
+                  "components": [
+                    {
+                      "internalType": "string",
+                      "name": "name",
+                      "type": "string"
+                    },
+                    {
+                      "internalType": "string",
+                      "name": "symbol",
+                      "type": "string"
+                    },
+                    {
+                      "internalType": "address",
+                      "name": "treasury",
+                      "type": "address"
+                    },
+                    {
+                      "internalType": "string",
+                      "name": "memo",
+                      "type": "string"
+                    },
+                    {
+                      "internalType": "bool",
+                      "name": "tokenSupplyType",
+                      "type": "bool"
+                    },
+                    {
+                      "internalType": "int64",
+                      "name": "maxSupply",
+                      "type": "int64"
+                    },
+                    {
+                      "internalType": "bool",
+                      "name": "freezeDefault",
+                      "type": "bool"
+                    },
+                    {
+                      "components": [
+                        {
+                          "internalType": "uint256",
+                          "name": "keyType",
+                          "type": "uint256"
+                        },
+                        {
+                          "components": [
+                            {
+                              "internalType": "bool",
+                              "name": "inheritAccountKey",
+                              "type": "bool"
+                            },
+                            {
+                              "internalType": "address",
+                              "name": "contractId",
+                              "type": "address"
+                            },
+                            {
+                              "internalType": "bytes",
+                              "name": "ed25519",
+                              "type": "bytes"
+                            },
+                            {
+                              "internalType": "bytes",
+                              "name": "ECDSA_secp256k1",
+                              "type": "bytes"
+                            },
+                            {
+                              "internalType": "address",
+                              "name": "delegatableContractId",
+                              "type": "address"
+                            }
+                          ],
+                          "internalType": "struct IHederaTokenService.KeyValue",
+                          "name": "key",
+                          "type": "tuple"
+                        }
+                      ],
+                      "internalType": "struct IHederaTokenService.TokenKey[]",
+                      "name": "tokenKeys",
+                      "type": "tuple[]"
+                    },
+                    {
+                      "components": [
+                        {
+                          "internalType": "int64",
+                          "name": "second",
+                          "type": "int64"
+                        },
+                        {
+                          "internalType": "address",
+                          "name": "autoRenewAccount",
+                          "type": "address"
+                        },
+                        {
+                          "internalType": "int64",
+                          "name": "autoRenewPeriod",
+                          "type": "int64"
+                        }
+                      ],
+                      "internalType": "struct IHederaTokenService.Expiry",
+                      "name": "expiry",
+                      "type": "tuple"
+                    }
+                  ],
+                  "internalType": "struct IHederaTokenService.HederaToken",
+                  "name": "token",
+                  "type": "tuple"
+                },
+                {
+                  "internalType": "int64",
+                  "name": "totalSupply",
+                  "type": "int64"
+                },
+                {
+                  "internalType": "bool",
+                  "name": "deleted",
+                  "type": "bool"
+                },
+                {
+                  "internalType": "bool",
+                  "name": "defaultKycStatus",
+                  "type": "bool"
+                },
+                {
+                  "internalType": "bool",
+                  "name": "pauseStatus",
+                  "type": "bool"
+                },
+                {
+                  "components": [
+                    {
+                      "internalType": "int64",
+                      "name": "amount",
+                      "type": "int64"
+                    },
+                    {
+                      "internalType": "address",
+                      "name": "tokenId",
+                      "type": "address"
+                    },
+                    {
+                      "internalType": "bool",
+                      "name": "useHbarsForPayment",
+                      "type": "bool"
+                    },
+                    {
+                      "internalType": "bool",
+                      "name": "useCurrentTokenForPayment",
+                      "type": "bool"
+                    },
+                    {
+                      "internalType": "address",
+                      "name": "feeCollector",
+                      "type": "address"
+                    }
+                  ],
+                  "internalType": "struct IHederaTokenService.FixedFee[]",
+                  "name": "fixedFees",
+                  "type": "tuple[]"
+                },
+                {
+                  "components": [
+                    {
+                      "internalType": "int64",
+                      "name": "numerator",
+                      "type": "int64"
+                    },
+                    {
+                      "internalType": "int64",
+                      "name": "denominator",
+                      "type": "int64"
+                    },
+                    {
+                      "internalType": "int64",
+                      "name": "minimumAmount",
+                      "type": "int64"
+                    },
+                    {
+                      "internalType": "int64",
+                      "name": "maximumAmount",
+                      "type": "int64"
+                    },
+                    {
+                      "internalType": "bool",
+                      "name": "netOfTransfers",
+                      "type": "bool"
+                    },
+                    {
+                      "internalType": "address",
+                      "name": "feeCollector",
+                      "type": "address"
+                    }
+                  ],
+                  "internalType": "struct IHederaTokenService.FractionalFee[]",
+                  "name": "fractionalFees",
+                  "type": "tuple[]"
+                },
+                {
+                  "components": [
+                    {
+                      "internalType": "int64",
+                      "name": "numerator",
+                      "type": "int64"
+                    },
+                    {
+                      "internalType": "int64",
+                      "name": "denominator",
+                      "type": "int64"
+                    },
+                    {
+                      "internalType": "int64",
+                      "name": "amount",
+                      "type": "int64"
+                    },
+                    {
+                      "internalType": "address",
+                      "name": "tokenId",
+                      "type": "address"
+                    },
+                    {
+                      "internalType": "bool",
+                      "name": "useHbarsForPayment",
+                      "type": "bool"
+                    },
+                    {
+                      "internalType": "address",
+                      "name": "feeCollector",
+                      "type": "address"
+                    }
+                  ],
+                  "internalType": "struct IHederaTokenService.RoyaltyFee[]",
+                  "name": "royaltyFees",
+                  "type": "tuple[]"
+                },
+                {
+                  "internalType": "string",
+                  "name": "ledgerId",
+                  "type": "string"
+                }
+              ],
+              "internalType": "struct IHederaTokenService.TokenInfo",
+              "name": "tokenInfo",
+              "type": "tuple"
+            },
+            {
+              "internalType": "int32",
+              "name": "decimals",
+              "type": "int32"
+            }
+          ],
+          "indexed": false,
+          "internalType": "struct IHederaTokenService.FungibleTokenInfo",
+          "name": "",
+          "type": "tuple"
+        }
+      ],
+      "name": "GetFungibleTokenInfo",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "components": [
+            {
+              "components": [
+                {
+                  "components": [
+                    {
+                      "internalType": "string",
+                      "name": "name",
+                      "type": "string"
+                    },
+                    {
+                      "internalType": "string",
+                      "name": "symbol",
+                      "type": "string"
+                    },
+                    {
+                      "internalType": "address",
+                      "name": "treasury",
+                      "type": "address"
+                    },
+                    {
+                      "internalType": "string",
+                      "name": "memo",
+                      "type": "string"
+                    },
+                    {
+                      "internalType": "bool",
+                      "name": "tokenSupplyType",
+                      "type": "bool"
+                    },
+                    {
+                      "internalType": "int64",
+                      "name": "maxSupply",
+                      "type": "int64"
+                    },
+                    {
+                      "internalType": "bool",
+                      "name": "freezeDefault",
+                      "type": "bool"
+                    },
+                    {
+                      "components": [
+                        {
+                          "internalType": "uint256",
+                          "name": "keyType",
+                          "type": "uint256"
+                        },
+                        {
+                          "components": [
+                            {
+                              "internalType": "bool",
+                              "name": "inheritAccountKey",
+                              "type": "bool"
+                            },
+                            {
+                              "internalType": "address",
+                              "name": "contractId",
+                              "type": "address"
+                            },
+                            {
+                              "internalType": "bytes",
+                              "name": "ed25519",
+                              "type": "bytes"
+                            },
+                            {
+                              "internalType": "bytes",
+                              "name": "ECDSA_secp256k1",
+                              "type": "bytes"
+                            },
+                            {
+                              "internalType": "address",
+                              "name": "delegatableContractId",
+                              "type": "address"
+                            }
+                          ],
+                          "internalType": "struct IHederaTokenService.KeyValue",
+                          "name": "key",
+                          "type": "tuple"
+                        }
+                      ],
+                      "internalType": "struct IHederaTokenService.TokenKey[]",
+                      "name": "tokenKeys",
+                      "type": "tuple[]"
+                    },
+                    {
+                      "components": [
+                        {
+                          "internalType": "int64",
+                          "name": "second",
+                          "type": "int64"
+                        },
+                        {
+                          "internalType": "address",
+                          "name": "autoRenewAccount",
+                          "type": "address"
+                        },
+                        {
+                          "internalType": "int64",
+                          "name": "autoRenewPeriod",
+                          "type": "int64"
+                        }
+                      ],
+                      "internalType": "struct IHederaTokenService.Expiry",
+                      "name": "expiry",
+                      "type": "tuple"
+                    }
+                  ],
+                  "internalType": "struct IHederaTokenService.HederaToken",
+                  "name": "token",
+                  "type": "tuple"
+                },
+                {
+                  "internalType": "int64",
+                  "name": "totalSupply",
+                  "type": "int64"
+                },
+                {
+                  "internalType": "bool",
+                  "name": "deleted",
+                  "type": "bool"
+                },
+                {
+                  "internalType": "bool",
+                  "name": "defaultKycStatus",
+                  "type": "bool"
+                },
+                {
+                  "internalType": "bool",
+                  "name": "pauseStatus",
+                  "type": "bool"
+                },
+                {
+                  "components": [
+                    {
+                      "internalType": "int64",
+                      "name": "amount",
+                      "type": "int64"
+                    },
+                    {
+                      "internalType": "address",
+                      "name": "tokenId",
+                      "type": "address"
+                    },
+                    {
+                      "internalType": "bool",
+                      "name": "useHbarsForPayment",
+                      "type": "bool"
+                    },
+                    {
+                      "internalType": "bool",
+                      "name": "useCurrentTokenForPayment",
+                      "type": "bool"
+                    },
+                    {
+                      "internalType": "address",
+                      "name": "feeCollector",
+                      "type": "address"
+                    }
+                  ],
+                  "internalType": "struct IHederaTokenService.FixedFee[]",
+                  "name": "fixedFees",
+                  "type": "tuple[]"
+                },
+                {
+                  "components": [
+                    {
+                      "internalType": "int64",
+                      "name": "numerator",
+                      "type": "int64"
+                    },
+                    {
+                      "internalType": "int64",
+                      "name": "denominator",
+                      "type": "int64"
+                    },
+                    {
+                      "internalType": "int64",
+                      "name": "minimumAmount",
+                      "type": "int64"
+                    },
+                    {
+                      "internalType": "int64",
+                      "name": "maximumAmount",
+                      "type": "int64"
+                    },
+                    {
+                      "internalType": "bool",
+                      "name": "netOfTransfers",
+                      "type": "bool"
+                    },
+                    {
+                      "internalType": "address",
+                      "name": "feeCollector",
+                      "type": "address"
+                    }
+                  ],
+                  "internalType": "struct IHederaTokenService.FractionalFee[]",
+                  "name": "fractionalFees",
+                  "type": "tuple[]"
+                },
+                {
+                  "components": [
+                    {
+                      "internalType": "int64",
+                      "name": "numerator",
+                      "type": "int64"
+                    },
+                    {
+                      "internalType": "int64",
+                      "name": "denominator",
+                      "type": "int64"
+                    },
+                    {
+                      "internalType": "int64",
+                      "name": "amount",
+                      "type": "int64"
+                    },
+                    {
+                      "internalType": "address",
+                      "name": "tokenId",
+                      "type": "address"
+                    },
+                    {
+                      "internalType": "bool",
+                      "name": "useHbarsForPayment",
+                      "type": "bool"
+                    },
+                    {
+                      "internalType": "address",
+                      "name": "feeCollector",
+                      "type": "address"
+                    }
+                  ],
+                  "internalType": "struct IHederaTokenService.RoyaltyFee[]",
+                  "name": "royaltyFees",
+                  "type": "tuple[]"
+                },
+                {
+                  "internalType": "string",
+                  "name": "ledgerId",
+                  "type": "string"
+                }
+              ],
+              "internalType": "struct IHederaTokenService.TokenInfo",
+              "name": "tokenInfo",
+              "type": "tuple"
+            },
+            {
+              "internalType": "int64",
+              "name": "serialNumber",
+              "type": "int64"
+            },
+            {
+              "internalType": "address",
+              "name": "ownerId",
+              "type": "address"
+            },
+            {
+              "internalType": "int64",
+              "name": "creationTime",
+              "type": "int64"
+            },
+            {
+              "internalType": "bytes",
+              "name": "metadata",
+              "type": "bytes"
+            },
+            {
+              "internalType": "address",
+              "name": "spenderId",
+              "type": "address"
+            }
+          ],
+          "indexed": false,
+          "internalType": "struct IHederaTokenService.NonFungibleTokenInfo",
+          "name": "",
+          "type": "tuple"
+        }
+      ],
+      "name": "GetNonFungibleTokenInfo",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "components": [
+            {
+              "internalType": "int64",
+              "name": "amount",
+              "type": "int64"
+            },
+            {
+              "internalType": "address",
+              "name": "tokenId",
+              "type": "address"
+            },
+            {
+              "internalType": "bool",
+              "name": "useHbarsForPayment",
+              "type": "bool"
+            },
+            {
+              "internalType": "bool",
+              "name": "useCurrentTokenForPayment",
+              "type": "bool"
+            },
+            {
+              "internalType": "address",
+              "name": "feeCollector",
+              "type": "address"
+            }
+          ],
+          "indexed": false,
+          "internalType": "struct IHederaTokenService.FixedFee[]",
+          "name": "",
+          "type": "tuple[]"
+        },
+        {
+          "components": [
+            {
+              "internalType": "int64",
+              "name": "numerator",
+              "type": "int64"
+            },
+            {
+              "internalType": "int64",
+              "name": "denominator",
+              "type": "int64"
+            },
+            {
+              "internalType": "int64",
+              "name": "minimumAmount",
+              "type": "int64"
+            },
+            {
+              "internalType": "int64",
+              "name": "maximumAmount",
+              "type": "int64"
+            },
+            {
+              "internalType": "bool",
+              "name": "netOfTransfers",
+              "type": "bool"
+            },
+            {
+              "internalType": "address",
+              "name": "feeCollector",
+              "type": "address"
+            }
+          ],
+          "indexed": false,
+          "internalType": "struct IHederaTokenService.FractionalFee[]",
+          "name": "",
+          "type": "tuple[]"
+        },
+        {
+          "components": [
+            {
+              "internalType": "int64",
+              "name": "numerator",
+              "type": "int64"
+            },
+            {
+              "internalType": "int64",
+              "name": "denominator",
+              "type": "int64"
+            },
+            {
+              "internalType": "int64",
+              "name": "amount",
+              "type": "int64"
+            },
+            {
+              "internalType": "address",
+              "name": "tokenId",
+              "type": "address"
+            },
+            {
+              "internalType": "bool",
+              "name": "useHbarsForPayment",
+              "type": "bool"
+            },
+            {
+              "internalType": "address",
+              "name": "feeCollector",
+              "type": "address"
+            }
+          ],
+          "indexed": false,
+          "internalType": "struct IHederaTokenService.RoyaltyFee[]",
+          "name": "",
+          "type": "tuple[]"
+        }
+      ],
+      "name": "GetTokenCustomFees",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "name": "GetTokenDefaultFreezeStatus",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "name": "GetTokenDefaultKycStatus",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "components": [
+            {
+              "internalType": "int64",
+              "name": "second",
+              "type": "int64"
+            },
+            {
+              "internalType": "address",
+              "name": "autoRenewAccount",
+              "type": "address"
+            },
+            {
+              "internalType": "int64",
+              "name": "autoRenewPeriod",
+              "type": "int64"
+            }
+          ],
+          "indexed": false,
+          "internalType": "struct IHederaTokenService.Expiry",
+          "name": "",
+          "type": "tuple"
+        }
+      ],
+      "name": "GetTokenExpiryInfo",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "components": [
+            {
+              "components": [
+                {
+                  "internalType": "string",
+                  "name": "name",
+                  "type": "string"
+                },
+                {
+                  "internalType": "string",
+                  "name": "symbol",
+                  "type": "string"
+                },
+                {
+                  "internalType": "address",
+                  "name": "treasury",
+                  "type": "address"
+                },
+                {
+                  "internalType": "string",
+                  "name": "memo",
+                  "type": "string"
+                },
+                {
+                  "internalType": "bool",
+                  "name": "tokenSupplyType",
+                  "type": "bool"
+                },
+                {
+                  "internalType": "int64",
+                  "name": "maxSupply",
+                  "type": "int64"
+                },
+                {
+                  "internalType": "bool",
+                  "name": "freezeDefault",
+                  "type": "bool"
+                },
+                {
+                  "components": [
+                    {
+                      "internalType": "uint256",
+                      "name": "keyType",
+                      "type": "uint256"
+                    },
+                    {
+                      "components": [
+                        {
+                          "internalType": "bool",
+                          "name": "inheritAccountKey",
+                          "type": "bool"
+                        },
+                        {
+                          "internalType": "address",
+                          "name": "contractId",
+                          "type": "address"
+                        },
+                        {
+                          "internalType": "bytes",
+                          "name": "ed25519",
+                          "type": "bytes"
+                        },
+                        {
+                          "internalType": "bytes",
+                          "name": "ECDSA_secp256k1",
+                          "type": "bytes"
+                        },
+                        {
+                          "internalType": "address",
+                          "name": "delegatableContractId",
+                          "type": "address"
+                        }
+                      ],
+                      "internalType": "struct IHederaTokenService.KeyValue",
+                      "name": "key",
+                      "type": "tuple"
+                    }
+                  ],
+                  "internalType": "struct IHederaTokenService.TokenKey[]",
+                  "name": "tokenKeys",
+                  "type": "tuple[]"
+                },
+                {
+                  "components": [
+                    {
+                      "internalType": "int64",
+                      "name": "second",
+                      "type": "int64"
+                    },
+                    {
+                      "internalType": "address",
+                      "name": "autoRenewAccount",
+                      "type": "address"
+                    },
+                    {
+                      "internalType": "int64",
+                      "name": "autoRenewPeriod",
+                      "type": "int64"
+                    }
+                  ],
+                  "internalType": "struct IHederaTokenService.Expiry",
+                  "name": "expiry",
+                  "type": "tuple"
+                }
+              ],
+              "internalType": "struct IHederaTokenService.HederaToken",
+              "name": "token",
+              "type": "tuple"
+            },
+            {
+              "internalType": "int64",
+              "name": "totalSupply",
+              "type": "int64"
+            },
+            {
+              "internalType": "bool",
+              "name": "deleted",
+              "type": "bool"
+            },
+            {
+              "internalType": "bool",
+              "name": "defaultKycStatus",
+              "type": "bool"
+            },
+            {
+              "internalType": "bool",
+              "name": "pauseStatus",
+              "type": "bool"
+            },
+            {
+              "components": [
+                {
+                  "internalType": "int64",
+                  "name": "amount",
+                  "type": "int64"
+                },
+                {
+                  "internalType": "address",
+                  "name": "tokenId",
+                  "type": "address"
+                },
+                {
+                  "internalType": "bool",
+                  "name": "useHbarsForPayment",
+                  "type": "bool"
+                },
+                {
+                  "internalType": "bool",
+                  "name": "useCurrentTokenForPayment",
+                  "type": "bool"
+                },
+                {
+                  "internalType": "address",
+                  "name": "feeCollector",
+                  "type": "address"
+                }
+              ],
+              "internalType": "struct IHederaTokenService.FixedFee[]",
+              "name": "fixedFees",
+              "type": "tuple[]"
+            },
+            {
+              "components": [
+                {
+                  "internalType": "int64",
+                  "name": "numerator",
+                  "type": "int64"
+                },
+                {
+                  "internalType": "int64",
+                  "name": "denominator",
+                  "type": "int64"
+                },
+                {
+                  "internalType": "int64",
+                  "name": "minimumAmount",
+                  "type": "int64"
+                },
+                {
+                  "internalType": "int64",
+                  "name": "maximumAmount",
+                  "type": "int64"
+                },
+                {
+                  "internalType": "bool",
+                  "name": "netOfTransfers",
+                  "type": "bool"
+                },
+                {
+                  "internalType": "address",
+                  "name": "feeCollector",
+                  "type": "address"
+                }
+              ],
+              "internalType": "struct IHederaTokenService.FractionalFee[]",
+              "name": "fractionalFees",
+              "type": "tuple[]"
+            },
+            {
+              "components": [
+                {
+                  "internalType": "int64",
+                  "name": "numerator",
+                  "type": "int64"
+                },
+                {
+                  "internalType": "int64",
+                  "name": "denominator",
+                  "type": "int64"
+                },
+                {
+                  "internalType": "int64",
+                  "name": "amount",
+                  "type": "int64"
+                },
+                {
+                  "internalType": "address",
+                  "name": "tokenId",
+                  "type": "address"
+                },
+                {
+                  "internalType": "bool",
+                  "name": "useHbarsForPayment",
+                  "type": "bool"
+                },
+                {
+                  "internalType": "address",
+                  "name": "feeCollector",
+                  "type": "address"
+                }
+              ],
+              "internalType": "struct IHederaTokenService.RoyaltyFee[]",
+              "name": "royaltyFees",
+              "type": "tuple[]"
+            },
+            {
+              "internalType": "string",
+              "name": "ledgerId",
+              "type": "string"
+            }
+          ],
+          "indexed": false,
+          "internalType": "struct IHederaTokenService.TokenInfo",
+          "name": "",
+          "type": "tuple"
+        }
+      ],
+      "name": "GetTokenInfo",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "components": [
+            {
+              "internalType": "bool",
+              "name": "inheritAccountKey",
+              "type": "bool"
+            },
+            {
+              "internalType": "address",
+              "name": "contractId",
+              "type": "address"
+            },
+            {
+              "internalType": "bytes",
+              "name": "ed25519",
+              "type": "bytes"
+            },
+            {
+              "internalType": "bytes",
+              "name": "ECDSA_secp256k1",
+              "type": "bytes"
+            },
+            {
+              "internalType": "address",
+              "name": "delegatableContractId",
+              "type": "address"
+            }
+          ],
+          "indexed": false,
+          "internalType": "struct IHederaTokenService.KeyValue",
+          "name": "",
+          "type": "tuple"
+        }
+      ],
+      "name": "GetTokenKey",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "int32",
+          "name": "",
+          "type": "int32"
+        }
+      ],
+      "name": "GetTokenType",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "name": "IsApprovedForAll",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "name": "IsFrozen",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "name": "IsKyc",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "name": "IsToken",
+      "type": "event"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "token",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "owner",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "spender",
+          "type": "address"
+        }
+      ],
+      "name": "safeAllowancePublic",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "allowance",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "token",
+          "type": "address"
+        },
+        {
+          "internalType": "int64",
+          "name": "serialNumber",
+          "type": "int64"
+        }
+      ],
+      "name": "safeGetApprovedPublic",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "approved",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "token",
+          "type": "address"
+        }
+      ],
+      "name": "safeGetFungibleTokenInfoPublic",
+      "outputs": [
+        {
+          "components": [
+            {
+              "components": [
+                {
+                  "components": [
+                    {
+                      "internalType": "string",
+                      "name": "name",
+                      "type": "string"
+                    },
+                    {
+                      "internalType": "string",
+                      "name": "symbol",
+                      "type": "string"
+                    },
+                    {
+                      "internalType": "address",
+                      "name": "treasury",
+                      "type": "address"
+                    },
+                    {
+                      "internalType": "string",
+                      "name": "memo",
+                      "type": "string"
+                    },
+                    {
+                      "internalType": "bool",
+                      "name": "tokenSupplyType",
+                      "type": "bool"
+                    },
+                    {
+                      "internalType": "int64",
+                      "name": "maxSupply",
+                      "type": "int64"
+                    },
+                    {
+                      "internalType": "bool",
+                      "name": "freezeDefault",
+                      "type": "bool"
+                    },
+                    {
+                      "components": [
+                        {
+                          "internalType": "uint256",
+                          "name": "keyType",
+                          "type": "uint256"
+                        },
+                        {
+                          "components": [
+                            {
+                              "internalType": "bool",
+                              "name": "inheritAccountKey",
+                              "type": "bool"
+                            },
+                            {
+                              "internalType": "address",
+                              "name": "contractId",
+                              "type": "address"
+                            },
+                            {
+                              "internalType": "bytes",
+                              "name": "ed25519",
+                              "type": "bytes"
+                            },
+                            {
+                              "internalType": "bytes",
+                              "name": "ECDSA_secp256k1",
+                              "type": "bytes"
+                            },
+                            {
+                              "internalType": "address",
+                              "name": "delegatableContractId",
+                              "type": "address"
+                            }
+                          ],
+                          "internalType": "struct IHederaTokenService.KeyValue",
+                          "name": "key",
+                          "type": "tuple"
+                        }
+                      ],
+                      "internalType": "struct IHederaTokenService.TokenKey[]",
+                      "name": "tokenKeys",
+                      "type": "tuple[]"
+                    },
+                    {
+                      "components": [
+                        {
+                          "internalType": "int64",
+                          "name": "second",
+                          "type": "int64"
+                        },
+                        {
+                          "internalType": "address",
+                          "name": "autoRenewAccount",
+                          "type": "address"
+                        },
+                        {
+                          "internalType": "int64",
+                          "name": "autoRenewPeriod",
+                          "type": "int64"
+                        }
+                      ],
+                      "internalType": "struct IHederaTokenService.Expiry",
+                      "name": "expiry",
+                      "type": "tuple"
+                    }
+                  ],
+                  "internalType": "struct IHederaTokenService.HederaToken",
+                  "name": "token",
+                  "type": "tuple"
+                },
+                {
+                  "internalType": "int64",
+                  "name": "totalSupply",
+                  "type": "int64"
+                },
+                {
+                  "internalType": "bool",
+                  "name": "deleted",
+                  "type": "bool"
+                },
+                {
+                  "internalType": "bool",
+                  "name": "defaultKycStatus",
+                  "type": "bool"
+                },
+                {
+                  "internalType": "bool",
+                  "name": "pauseStatus",
+                  "type": "bool"
+                },
+                {
+                  "components": [
+                    {
+                      "internalType": "int64",
+                      "name": "amount",
+                      "type": "int64"
+                    },
+                    {
+                      "internalType": "address",
+                      "name": "tokenId",
+                      "type": "address"
+                    },
+                    {
+                      "internalType": "bool",
+                      "name": "useHbarsForPayment",
+                      "type": "bool"
+                    },
+                    {
+                      "internalType": "bool",
+                      "name": "useCurrentTokenForPayment",
+                      "type": "bool"
+                    },
+                    {
+                      "internalType": "address",
+                      "name": "feeCollector",
+                      "type": "address"
+                    }
+                  ],
+                  "internalType": "struct IHederaTokenService.FixedFee[]",
+                  "name": "fixedFees",
+                  "type": "tuple[]"
+                },
+                {
+                  "components": [
+                    {
+                      "internalType": "int64",
+                      "name": "numerator",
+                      "type": "int64"
+                    },
+                    {
+                      "internalType": "int64",
+                      "name": "denominator",
+                      "type": "int64"
+                    },
+                    {
+                      "internalType": "int64",
+                      "name": "minimumAmount",
+                      "type": "int64"
+                    },
+                    {
+                      "internalType": "int64",
+                      "name": "maximumAmount",
+                      "type": "int64"
+                    },
+                    {
+                      "internalType": "bool",
+                      "name": "netOfTransfers",
+                      "type": "bool"
+                    },
+                    {
+                      "internalType": "address",
+                      "name": "feeCollector",
+                      "type": "address"
+                    }
+                  ],
+                  "internalType": "struct IHederaTokenService.FractionalFee[]",
+                  "name": "fractionalFees",
+                  "type": "tuple[]"
+                },
+                {
+                  "components": [
+                    {
+                      "internalType": "int64",
+                      "name": "numerator",
+                      "type": "int64"
+                    },
+                    {
+                      "internalType": "int64",
+                      "name": "denominator",
+                      "type": "int64"
+                    },
+                    {
+                      "internalType": "int64",
+                      "name": "amount",
+                      "type": "int64"
+                    },
+                    {
+                      "internalType": "address",
+                      "name": "tokenId",
+                      "type": "address"
+                    },
+                    {
+                      "internalType": "bool",
+                      "name": "useHbarsForPayment",
+                      "type": "bool"
+                    },
+                    {
+                      "internalType": "address",
+                      "name": "feeCollector",
+                      "type": "address"
+                    }
+                  ],
+                  "internalType": "struct IHederaTokenService.RoyaltyFee[]",
+                  "name": "royaltyFees",
+                  "type": "tuple[]"
+                },
+                {
+                  "internalType": "string",
+                  "name": "ledgerId",
+                  "type": "string"
+                }
+              ],
+              "internalType": "struct IHederaTokenService.TokenInfo",
+              "name": "tokenInfo",
+              "type": "tuple"
+            },
+            {
+              "internalType": "int32",
+              "name": "decimals",
+              "type": "int32"
+            }
+          ],
+          "internalType": "struct IHederaTokenService.FungibleTokenInfo",
+          "name": "fungibleTokenInfo",
+          "type": "tuple"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "token",
+          "type": "address"
+        },
+        {
+          "internalType": "int64",
+          "name": "serialNumber",
+          "type": "int64"
+        }
+      ],
+      "name": "safeGetNonFungibleTokenInfoPublic",
+      "outputs": [
+        {
+          "components": [
+            {
+              "components": [
+                {
+                  "components": [
+                    {
+                      "internalType": "string",
+                      "name": "name",
+                      "type": "string"
+                    },
+                    {
+                      "internalType": "string",
+                      "name": "symbol",
+                      "type": "string"
+                    },
+                    {
+                      "internalType": "address",
+                      "name": "treasury",
+                      "type": "address"
+                    },
+                    {
+                      "internalType": "string",
+                      "name": "memo",
+                      "type": "string"
+                    },
+                    {
+                      "internalType": "bool",
+                      "name": "tokenSupplyType",
+                      "type": "bool"
+                    },
+                    {
+                      "internalType": "int64",
+                      "name": "maxSupply",
+                      "type": "int64"
+                    },
+                    {
+                      "internalType": "bool",
+                      "name": "freezeDefault",
+                      "type": "bool"
+                    },
+                    {
+                      "components": [
+                        {
+                          "internalType": "uint256",
+                          "name": "keyType",
+                          "type": "uint256"
+                        },
+                        {
+                          "components": [
+                            {
+                              "internalType": "bool",
+                              "name": "inheritAccountKey",
+                              "type": "bool"
+                            },
+                            {
+                              "internalType": "address",
+                              "name": "contractId",
+                              "type": "address"
+                            },
+                            {
+                              "internalType": "bytes",
+                              "name": "ed25519",
+                              "type": "bytes"
+                            },
+                            {
+                              "internalType": "bytes",
+                              "name": "ECDSA_secp256k1",
+                              "type": "bytes"
+                            },
+                            {
+                              "internalType": "address",
+                              "name": "delegatableContractId",
+                              "type": "address"
+                            }
+                          ],
+                          "internalType": "struct IHederaTokenService.KeyValue",
+                          "name": "key",
+                          "type": "tuple"
+                        }
+                      ],
+                      "internalType": "struct IHederaTokenService.TokenKey[]",
+                      "name": "tokenKeys",
+                      "type": "tuple[]"
+                    },
+                    {
+                      "components": [
+                        {
+                          "internalType": "int64",
+                          "name": "second",
+                          "type": "int64"
+                        },
+                        {
+                          "internalType": "address",
+                          "name": "autoRenewAccount",
+                          "type": "address"
+                        },
+                        {
+                          "internalType": "int64",
+                          "name": "autoRenewPeriod",
+                          "type": "int64"
+                        }
+                      ],
+                      "internalType": "struct IHederaTokenService.Expiry",
+                      "name": "expiry",
+                      "type": "tuple"
+                    }
+                  ],
+                  "internalType": "struct IHederaTokenService.HederaToken",
+                  "name": "token",
+                  "type": "tuple"
+                },
+                {
+                  "internalType": "int64",
+                  "name": "totalSupply",
+                  "type": "int64"
+                },
+                {
+                  "internalType": "bool",
+                  "name": "deleted",
+                  "type": "bool"
+                },
+                {
+                  "internalType": "bool",
+                  "name": "defaultKycStatus",
+                  "type": "bool"
+                },
+                {
+                  "internalType": "bool",
+                  "name": "pauseStatus",
+                  "type": "bool"
+                },
+                {
+                  "components": [
+                    {
+                      "internalType": "int64",
+                      "name": "amount",
+                      "type": "int64"
+                    },
+                    {
+                      "internalType": "address",
+                      "name": "tokenId",
+                      "type": "address"
+                    },
+                    {
+                      "internalType": "bool",
+                      "name": "useHbarsForPayment",
+                      "type": "bool"
+                    },
+                    {
+                      "internalType": "bool",
+                      "name": "useCurrentTokenForPayment",
+                      "type": "bool"
+                    },
+                    {
+                      "internalType": "address",
+                      "name": "feeCollector",
+                      "type": "address"
+                    }
+                  ],
+                  "internalType": "struct IHederaTokenService.FixedFee[]",
+                  "name": "fixedFees",
+                  "type": "tuple[]"
+                },
+                {
+                  "components": [
+                    {
+                      "internalType": "int64",
+                      "name": "numerator",
+                      "type": "int64"
+                    },
+                    {
+                      "internalType": "int64",
+                      "name": "denominator",
+                      "type": "int64"
+                    },
+                    {
+                      "internalType": "int64",
+                      "name": "minimumAmount",
+                      "type": "int64"
+                    },
+                    {
+                      "internalType": "int64",
+                      "name": "maximumAmount",
+                      "type": "int64"
+                    },
+                    {
+                      "internalType": "bool",
+                      "name": "netOfTransfers",
+                      "type": "bool"
+                    },
+                    {
+                      "internalType": "address",
+                      "name": "feeCollector",
+                      "type": "address"
+                    }
+                  ],
+                  "internalType": "struct IHederaTokenService.FractionalFee[]",
+                  "name": "fractionalFees",
+                  "type": "tuple[]"
+                },
+                {
+                  "components": [
+                    {
+                      "internalType": "int64",
+                      "name": "numerator",
+                      "type": "int64"
+                    },
+                    {
+                      "internalType": "int64",
+                      "name": "denominator",
+                      "type": "int64"
+                    },
+                    {
+                      "internalType": "int64",
+                      "name": "amount",
+                      "type": "int64"
+                    },
+                    {
+                      "internalType": "address",
+                      "name": "tokenId",
+                      "type": "address"
+                    },
+                    {
+                      "internalType": "bool",
+                      "name": "useHbarsForPayment",
+                      "type": "bool"
+                    },
+                    {
+                      "internalType": "address",
+                      "name": "feeCollector",
+                      "type": "address"
+                    }
+                  ],
+                  "internalType": "struct IHederaTokenService.RoyaltyFee[]",
+                  "name": "royaltyFees",
+                  "type": "tuple[]"
+                },
+                {
+                  "internalType": "string",
+                  "name": "ledgerId",
+                  "type": "string"
+                }
+              ],
+              "internalType": "struct IHederaTokenService.TokenInfo",
+              "name": "tokenInfo",
+              "type": "tuple"
+            },
+            {
+              "internalType": "int64",
+              "name": "serialNumber",
+              "type": "int64"
+            },
+            {
+              "internalType": "address",
+              "name": "ownerId",
+              "type": "address"
+            },
+            {
+              "internalType": "int64",
+              "name": "creationTime",
+              "type": "int64"
+            },
+            {
+              "internalType": "bytes",
+              "name": "metadata",
+              "type": "bytes"
+            },
+            {
+              "internalType": "address",
+              "name": "spenderId",
+              "type": "address"
+            }
+          ],
+          "internalType": "struct IHederaTokenService.NonFungibleTokenInfo",
+          "name": "nonFungibleTokenInfo",
+          "type": "tuple"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "token",
+          "type": "address"
+        }
+      ],
+      "name": "safeGetTokenCustomFeesPublic",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "int64",
+              "name": "amount",
+              "type": "int64"
+            },
+            {
+              "internalType": "address",
+              "name": "tokenId",
+              "type": "address"
+            },
+            {
+              "internalType": "bool",
+              "name": "useHbarsForPayment",
+              "type": "bool"
+            },
+            {
+              "internalType": "bool",
+              "name": "useCurrentTokenForPayment",
+              "type": "bool"
+            },
+            {
+              "internalType": "address",
+              "name": "feeCollector",
+              "type": "address"
+            }
+          ],
+          "internalType": "struct IHederaTokenService.FixedFee[]",
+          "name": "fixedFees",
+          "type": "tuple[]"
+        },
+        {
+          "components": [
+            {
+              "internalType": "int64",
+              "name": "numerator",
+              "type": "int64"
+            },
+            {
+              "internalType": "int64",
+              "name": "denominator",
+              "type": "int64"
+            },
+            {
+              "internalType": "int64",
+              "name": "minimumAmount",
+              "type": "int64"
+            },
+            {
+              "internalType": "int64",
+              "name": "maximumAmount",
+              "type": "int64"
+            },
+            {
+              "internalType": "bool",
+              "name": "netOfTransfers",
+              "type": "bool"
+            },
+            {
+              "internalType": "address",
+              "name": "feeCollector",
+              "type": "address"
+            }
+          ],
+          "internalType": "struct IHederaTokenService.FractionalFee[]",
+          "name": "fractionalFees",
+          "type": "tuple[]"
+        },
+        {
+          "components": [
+            {
+              "internalType": "int64",
+              "name": "numerator",
+              "type": "int64"
+            },
+            {
+              "internalType": "int64",
+              "name": "denominator",
+              "type": "int64"
+            },
+            {
+              "internalType": "int64",
+              "name": "amount",
+              "type": "int64"
+            },
+            {
+              "internalType": "address",
+              "name": "tokenId",
+              "type": "address"
+            },
+            {
+              "internalType": "bool",
+              "name": "useHbarsForPayment",
+              "type": "bool"
+            },
+            {
+              "internalType": "address",
+              "name": "feeCollector",
+              "type": "address"
+            }
+          ],
+          "internalType": "struct IHederaTokenService.RoyaltyFee[]",
+          "name": "royaltyFees",
+          "type": "tuple[]"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "token",
+          "type": "address"
+        }
+      ],
+      "name": "safeGetTokenDefaultFreezeStatusPublic",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "defaultFreezeStatus",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "token",
+          "type": "address"
+        }
+      ],
+      "name": "safeGetTokenDefaultKycStatusPublic",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "defaultKycStatus",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "token",
+          "type": "address"
+        }
+      ],
+      "name": "safeGetTokenExpiryInfoPublic",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "int64",
+              "name": "second",
+              "type": "int64"
+            },
+            {
+              "internalType": "address",
+              "name": "autoRenewAccount",
+              "type": "address"
+            },
+            {
+              "internalType": "int64",
+              "name": "autoRenewPeriod",
+              "type": "int64"
+            }
+          ],
+          "internalType": "struct IHederaTokenService.Expiry",
+          "name": "expiry",
+          "type": "tuple"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "token",
+          "type": "address"
+        }
+      ],
+      "name": "safeGetTokenInfoPublic",
+      "outputs": [
+        {
+          "components": [
+            {
+              "components": [
+                {
+                  "internalType": "string",
+                  "name": "name",
+                  "type": "string"
+                },
+                {
+                  "internalType": "string",
+                  "name": "symbol",
+                  "type": "string"
+                },
+                {
+                  "internalType": "address",
+                  "name": "treasury",
+                  "type": "address"
+                },
+                {
+                  "internalType": "string",
+                  "name": "memo",
+                  "type": "string"
+                },
+                {
+                  "internalType": "bool",
+                  "name": "tokenSupplyType",
+                  "type": "bool"
+                },
+                {
+                  "internalType": "int64",
+                  "name": "maxSupply",
+                  "type": "int64"
+                },
+                {
+                  "internalType": "bool",
+                  "name": "freezeDefault",
+                  "type": "bool"
+                },
+                {
+                  "components": [
+                    {
+                      "internalType": "uint256",
+                      "name": "keyType",
+                      "type": "uint256"
+                    },
+                    {
+                      "components": [
+                        {
+                          "internalType": "bool",
+                          "name": "inheritAccountKey",
+                          "type": "bool"
+                        },
+                        {
+                          "internalType": "address",
+                          "name": "contractId",
+                          "type": "address"
+                        },
+                        {
+                          "internalType": "bytes",
+                          "name": "ed25519",
+                          "type": "bytes"
+                        },
+                        {
+                          "internalType": "bytes",
+                          "name": "ECDSA_secp256k1",
+                          "type": "bytes"
+                        },
+                        {
+                          "internalType": "address",
+                          "name": "delegatableContractId",
+                          "type": "address"
+                        }
+                      ],
+                      "internalType": "struct IHederaTokenService.KeyValue",
+                      "name": "key",
+                      "type": "tuple"
+                    }
+                  ],
+                  "internalType": "struct IHederaTokenService.TokenKey[]",
+                  "name": "tokenKeys",
+                  "type": "tuple[]"
+                },
+                {
+                  "components": [
+                    {
+                      "internalType": "int64",
+                      "name": "second",
+                      "type": "int64"
+                    },
+                    {
+                      "internalType": "address",
+                      "name": "autoRenewAccount",
+                      "type": "address"
+                    },
+                    {
+                      "internalType": "int64",
+                      "name": "autoRenewPeriod",
+                      "type": "int64"
+                    }
+                  ],
+                  "internalType": "struct IHederaTokenService.Expiry",
+                  "name": "expiry",
+                  "type": "tuple"
+                }
+              ],
+              "internalType": "struct IHederaTokenService.HederaToken",
+              "name": "token",
+              "type": "tuple"
+            },
+            {
+              "internalType": "int64",
+              "name": "totalSupply",
+              "type": "int64"
+            },
+            {
+              "internalType": "bool",
+              "name": "deleted",
+              "type": "bool"
+            },
+            {
+              "internalType": "bool",
+              "name": "defaultKycStatus",
+              "type": "bool"
+            },
+            {
+              "internalType": "bool",
+              "name": "pauseStatus",
+              "type": "bool"
+            },
+            {
+              "components": [
+                {
+                  "internalType": "int64",
+                  "name": "amount",
+                  "type": "int64"
+                },
+                {
+                  "internalType": "address",
+                  "name": "tokenId",
+                  "type": "address"
+                },
+                {
+                  "internalType": "bool",
+                  "name": "useHbarsForPayment",
+                  "type": "bool"
+                },
+                {
+                  "internalType": "bool",
+                  "name": "useCurrentTokenForPayment",
+                  "type": "bool"
+                },
+                {
+                  "internalType": "address",
+                  "name": "feeCollector",
+                  "type": "address"
+                }
+              ],
+              "internalType": "struct IHederaTokenService.FixedFee[]",
+              "name": "fixedFees",
+              "type": "tuple[]"
+            },
+            {
+              "components": [
+                {
+                  "internalType": "int64",
+                  "name": "numerator",
+                  "type": "int64"
+                },
+                {
+                  "internalType": "int64",
+                  "name": "denominator",
+                  "type": "int64"
+                },
+                {
+                  "internalType": "int64",
+                  "name": "minimumAmount",
+                  "type": "int64"
+                },
+                {
+                  "internalType": "int64",
+                  "name": "maximumAmount",
+                  "type": "int64"
+                },
+                {
+                  "internalType": "bool",
+                  "name": "netOfTransfers",
+                  "type": "bool"
+                },
+                {
+                  "internalType": "address",
+                  "name": "feeCollector",
+                  "type": "address"
+                }
+              ],
+              "internalType": "struct IHederaTokenService.FractionalFee[]",
+              "name": "fractionalFees",
+              "type": "tuple[]"
+            },
+            {
+              "components": [
+                {
+                  "internalType": "int64",
+                  "name": "numerator",
+                  "type": "int64"
+                },
+                {
+                  "internalType": "int64",
+                  "name": "denominator",
+                  "type": "int64"
+                },
+                {
+                  "internalType": "int64",
+                  "name": "amount",
+                  "type": "int64"
+                },
+                {
+                  "internalType": "address",
+                  "name": "tokenId",
+                  "type": "address"
+                },
+                {
+                  "internalType": "bool",
+                  "name": "useHbarsForPayment",
+                  "type": "bool"
+                },
+                {
+                  "internalType": "address",
+                  "name": "feeCollector",
+                  "type": "address"
+                }
+              ],
+              "internalType": "struct IHederaTokenService.RoyaltyFee[]",
+              "name": "royaltyFees",
+              "type": "tuple[]"
+            },
+            {
+              "internalType": "string",
+              "name": "ledgerId",
+              "type": "string"
+            }
+          ],
+          "internalType": "struct IHederaTokenService.TokenInfo",
+          "name": "tokenInfo",
+          "type": "tuple"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "token",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "keyType",
+          "type": "uint256"
+        }
+      ],
+      "name": "safeGetTokenKeyPublic",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "bool",
+              "name": "inheritAccountKey",
+              "type": "bool"
+            },
+            {
+              "internalType": "address",
+              "name": "contractId",
+              "type": "address"
+            },
+            {
+              "internalType": "bytes",
+              "name": "ed25519",
+              "type": "bytes"
+            },
+            {
+              "internalType": "bytes",
+              "name": "ECDSA_secp256k1",
+              "type": "bytes"
+            },
+            {
+              "internalType": "address",
+              "name": "delegatableContractId",
+              "type": "address"
+            }
+          ],
+          "internalType": "struct IHederaTokenService.KeyValue",
+          "name": "key",
+          "type": "tuple"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "token",
+          "type": "address"
+        }
+      ],
+      "name": "safeGetTokenTypePublic",
+      "outputs": [
+        {
+          "internalType": "int32",
+          "name": "tokenType",
+          "type": "int32"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "token",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "owner",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "operator",
+          "type": "address"
+        }
+      ],
+      "name": "safeIsApprovedForAllPublic",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "approved",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "token",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "account",
+          "type": "address"
+        }
+      ],
+      "name": "safeIsFrozenPublic",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "frozen",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "token",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "account",
+          "type": "address"
+        }
+      ],
+      "name": "safeIsKycPublic",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "kycGranted",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "token",
+          "type": "address"
+        }
+      ],
+      "name": "safeIsTokenPublic",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "isToken",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "bytecode": "0x60808060405234601557611f9a908161001b8239f35b600080fdfe608080604052600436101561001357600080fd5b60003560e01c90816315cc83c6146110545750806358d18a9b14610f275780635e19b21614610e4e5780635e4ea29a14610d7457806364b2164d14610c6f5780636a0c408014610b955780638f90d8ab14610a4c5780639870ae2614610962578063a29d040914610876578063bd3f267d146106b5578063de85a43714610580578063e89ccba214610421578063f0bb73dc14610323578063f17a3704146101c15763f31bbd4c146100c457600080fd5b346101bc5760403660031901126101bc576000806100e061114a565b6101236101316100ee611160565b6040516346de0fb160e01b602082019081526001600160a01b0395861660248301529490911660448201529182906064820190565b03601f198101835282611719565b5190826101675af1610141611887565b90156101b05761015c816020806016945183010191016118d2565b91905b60030b0361019f576020907f4201dfb4e0dfb05a2559eac13eafcdc97ea04887a8c558fab4c144d0a479899b8260405192151592838152a1604051908152f35b6374004e7960e11b60005260046000fd5b5060006016601561015f565b600080fd5b346101bc5760203660031901126101bc576101da61114a565b6101e261184c565b506000806101ee61184c565b926040516020810191633f28a19b60e01b835260018060a01b031660248201526024815261021d604482611719565b5190826101675af19061022e611887565b9115610318575080518101906040818303126101bc57610250602082016118b7565b906040810151906001600160401b0382116101bc5701906040828403126101bc576040519261027e846116ac565b60208301516001600160401b0381116101bc576016936102ab6040926020806102b3960191840101611cac565b8652016118b7565b60208401525b60030b0361030757610303907fd0715cecbd3526856211e73e140b8691510b2d0384ea5af48967e15791202b9e604051806102f48482611653565b0390a160405191829182611653565b0390f35b631fbc7c8f60e01b60005260046000fd5b9050601660156102b9565b346101bc5760603660031901126101bc5760008061033f61114a565b610347611160565b610390610352611176565b60405163927da10560e01b602082019081526001600160a01b0395861660248301529385166044820152931660648401529091908160848101610123565b5190826101675af16103a0611887565b9015610415576040818051810103126101bc57601660406103c3602084016118b7565b920151915b60030b03610404576020907fb960ebf065966969da9ffeb07fa131d57456535bffdec2ed2844e0bd987e2c4282604051838152a1604051908152f35b63b9382f0760e01b60005260046000fd5b506000601660156103c8565b346101bc5760203660031901126101bc5760008061043d61114a565b604051630573b08d60e51b602082019081526001600160a01b039092166024808301919091528152610470604482611719565b5190826101675af1610480611887565b90156105725780518101608082602083019203126101bc576104a4602083016118b7565b9160408101516001600160401b0381116101bc578260206104c792840101611a44565b9060608101516001600160401b0381116101bc578360206104ea92840101611b06565b926080820151906001600160401b0382116101bc57602061050f926016940101611bd9565b93919293915b60030b0361056157610303907f0d5ce52294a8f97837267fbbb3f0d83cb5edb26c147e6740cfb5e2bfeaf2aad6604051806105528488888461161c565b0390a16040519384938461161c565b634c85126960e01b60005260046000fd5b506060808060166015610515565b346101bc5760403660031901126101bc5761059961114a565b6105a1611820565b506000806105ad611820565b926040516020810191631e26e99760e11b835260018060a01b031660248201526024356044820152604481526105e4606482611719565b5190826101675af1906105f5611887565b91156106aa5750805181016040828203126101bc57610616602083016118b7565b916040810151906001600160401b0382116101bc57602061063e92816016950192010161196e565b915b60030b0361069957610303907f3f6422bb82ff7a8689b2c076298d1b2a8720d9f557fcd612a81154dc88082d83604051602081528061068260208201856111d4565b0390a16040519182916020835260208301906111d4565b63664cb42360e01b60005260046000fd5b905060166015610640565b346101bc576000806106c636611577565b92906106d06117e7565b506101236107176106df6117e7565b60405163050fc3b560e31b602082019081526001600160a01b03909516602482015260079790970b6044880152959182906064820190565b5190826101675af190610728611887565b911561086b57508051810160208101916040818303126101bc5761074e602082016118b7565b906040810151906001600160401b0382116101bc57019160c090839003126101bc576040519261077d8461167b565b60208301516001600160401b0381116101bc5781602061079f92860101611cac565b84526107ad60408401611949565b60208501526107be60608401611935565b60408501526107cf60808401611949565b606085015260a0830151906001600160401b0382116101bc57836107ff60c092602061080a9560169801016118f3565b608087015201611935565b60a08401525b60030b0361085a57610303907fdab074acf5f707b9aee79865ae646df76d8bfa02971d97e18a0dd87bccee9bbd6040518061084b84826115a7565b0390a1604051918291826115a7565b63b12473af60e01b60005260046000fd5b905060166015610810565b346101bc5760203660031901126101bc5760008061089261114a565b6040516393272baf60e01b602082019081526001600160a01b0390921660248083019190915281526108c5604482611719565b5190826101675af16108d5611887565b9015610956576040818051810103126101bc57601661090260406108fb602085016118b7565b93016118b7565b915b60030b03610945576020907f83bea5ce1210e5f38206474e1ccea3e947bb2f4b183858e4b33a2c2280e265f7826040519260030b92838152a1604051908152f35b635d4b19cf60e11b60005260046000fd5b50600060166015610904565b346101bc5760403660031901126101bc5760008061097e61114a565b6101236109c161098c611160565b604051633cb0c7fd60e21b602082019081526001600160a01b0395861660248301529490911660448201529182906064820190565b5190826101675af16109d1611887565b9015610a40576109ec816020806016945183010191016118d2565b91905b60030b03610a2f576020907fa2fb81d2c4828e139799e8be1ffa81cd8f4229459b2946e9d3916fddb366fa2e8260405192151592838152a1604051908152f35b63711425f760e11b60005260046000fd5b506000601660156109ef565b346101bc5760203660031901126101bc57610a6561114a565b610a6d61173a565b50600080610a7961173a565b926040516020810191631ac299b760e31b835260018060a01b0316602482015260248152610aa8604482611719565b5190826101675af190610ab9611887565b9115610b8a575080518101906080818303126101bc57610aed8160406020610ae481601696016118b7565b95019101611a02565b915b60030b03610b79576060907f367d3a502c2227b77b2d98ac6516f7e9c04bdc0791611a06d70591538ebecee682604051610b4b818560408091805160070b845260018060a01b036020820151166020850152015160070b910152565ba1604080518251600790810b82526020808501516001600160a01b0316908301529282015190920b90820152f35b63303d457360e21b60005260046000fd5b905060166015610aef565b346101bc5760203660031901126101bc57600080610bb161114a565b6040516319f3736160e01b602082019081526001600160a01b039092166024808301919091528152610be4604482611719565b5190826101675af1610bf4611887565b9015610c6357610c0f816020806016945183010191016118d2565b91905b60030b03610c52576020907f5080c42cc33acbcea410fa6eaa925bd878674825501981184fdd53749f8478a88260405192151592838152a1604051908152f35b634050963360e01b60005260046000fd5b50600060166015610c12565b346101bc57600080610cc0610123610c8636611577565b6040516304c791b360e11b602082019081526001600160a01b03909316602482015260079190910b60448201529092909182906064820190565b5190826101675af1610cd0611887565b9015610d68576040818051810103126101bc576040610cf1602083016118b7565b9101516001600160a01b03811691908290036101bc5760169060030b5b60030b03610d57576040516001600160a01b039091168082526020917fc94f645408f5f9debf737eb96c340091e399ce9871592da6231f91d329675338908390a1604051908152f35b63e460426160e01b60005260046000fd5b50600060166015610d0e565b346101bc5760203660031901126101bc57600080610d9061114a565b60405163a7daa18d60e01b602082019081526001600160a01b039092166024808301919091528152610dc3604482611719565b5190826101675af1610dd3611887565b9015610e4257610dee816020806016945183010191016118d2565b91905b60030b03610e31576020907f6ab5945f293e879dd97c678ef2ea7222108b42b253b599bb3ca20fed76cc7bf38260405192151592838152a1604051908152f35b63f6e464e960e01b60005260046000fd5b50600060166015610df1565b346101bc5760203660031901126101bc57600080610e6a61114a565b60405163335e04c160e01b602082019081526001600160a01b039092166024808301919091528152610e9d604482611719565b5190826101675af1610ead611887565b9015610f1b57610ec8816020806016945183010191016118d2565b91905b60030b03610f0b576020907f5d3abc148c71e7f8642162046e53bdbc00c7fa8b7ac3bcde38153a222ecc5b518260405192151592838152a1604051908152f35b62629e9d60e81b60005260046000fd5b50600060166015610ecb565b346101bc5760203660031901126101bc57610f4061114a565b610f48611759565b50600080610f54611759565b926040516020810191631f69565f60e01b835260018060a01b0316602482015260248152610f83604482611719565b5190826101675af190610f94611887565b91156110495750805181016040828203126101bc57610fb5602083016118b7565b916040810151906001600160401b0382116101bc576020610fdd928160169501920101611cac565b915b60030b0361103857610303907f67179d96dbb10d5e87f0d919e87917fc6b1f13ea2fb4060c9e607e796d8d2946604051602081528061102160208201856113a6565b0390a16040519182916020835260208301906113a6565b632a5292c160e11b60005260046000fd5b905060166015610fdf565b346101bc5760603660031901126101bc576000809161107161114a565b906110bf81610123611081611160565b611089611176565b63f49f40db60e01b602085019081526001600160a01b039788166024860152918716604485015290951660648301526084820190565b5190826101675af16110cf611887565b901561113e576110ea816020806016945183010191016118d2565b91905b60030b0361112d576020907f20036055d1f68e359fb691e93d64cd8de5ed7b15a6193107e97583a6f9afc1218260405192151592838152a1604051908152f35b63c30cd94160e01b60005260046000fd5b506000601660156110ed565b600435906001600160a01b03821682036101bc57565b602435906001600160a01b03821682036101bc57565b604435906001600160a01b03821682036101bc57565b60005b83811061119f5750506000910152565b818101518382015260200161118f565b906020916111c88151809281855285808601910161118c565b601f01601f1916010190565b9081511515815260018060a01b036020830151166020820152608061121d61120b604085015160a0604086015260a08501906111af565b606085015184820360608601526111af565b928101516001600160a01b031691015290565b906020808351928381520192019060005b81811061124e5750505090565b8251805160070b85526020818101516001600160a01b0390811682880152604080840151151590880152606080840151151590880152608092830151169186019190915260a09094019390920191600101611241565b906020808351928381520192019060005b8181106112c25750505090565b909192602060c06001928651805160070b82528381015160070b84830152604081015160070b6040830152606081015160070b606083015260808101511515608083015260a08580821b039101511660a082015201940191019190916112b5565b906020808351928381520192019060005b8181106113415750505090565b909192602060c06001928651805160070b82528381015160070b84830152604081015160070b6040830152848060a01b03606082015116606083015260808101511515608083015260a08580821b039101511660a08201520194019101919091611334565b91909180519261012081526114146113e86113d086516101606101208601526102808501906111af565b602087015184820361011f19016101408601526111af565b60408601516001600160a01b0316610160840152606086015183820361011f19016101808501526111af565b93608081015115156101a083015260a081015160070b6101c083015260c081015115156101e083015260e08101519061011f1983870301610200840152815180875260208701906020808260051b8a01019401916000905b82821061153a5750505050611537949550611513611501610100936114be8561152595015161022088019060408091805160070b845260018060a01b036020820151166020850152015160070b910152565b602087015160070b602087015260408701511515604087015260608701511515606087015260808701511515608087015260a087015186820360a0880152611230565b60c086015185820360c08701526112a4565b60e085015184820360e0860152611323565b920151906101008184039101526111af565b90565b909192946020806115696001938d601f199082030186526040838b5180518452015191818582015201906111d4565b97019201920190929161146c565b60409060031901126101bc576004356001600160a01b03811681036101bc57906024358060070b81036101bc5790565b6020815260c06116076115c5845183602086015260e08501906113a6565b602085015160070b604085015260018060a01b036040860151166060850152606085015160070b60808501526080850151601f198583030160a08601526111af565b60a0909301516001600160a01b031691015290565b91611645906116376115379593606086526060860190611230565b9084820360208601526112a4565b916040818403910152611323565b602081526040602061166f8451838386015260608501906113a6565b93015160030b91015290565b60c081019081106001600160401b0382111761169657604052565b634e487b7160e01b600052604160045260246000fd5b604081019081106001600160401b0382111761169657604052565b606081019081106001600160401b0382111761169657604052565b61012081019081106001600160401b0382111761169657604052565b60a081019081106001600160401b0382111761169657604052565b90601f801991011681019081106001600160401b0382111761169657604052565b60405190611747826116c7565b60006040838281528260208201520152565b60405190611766826116e2565b606061010083604051611778816116e2565b83815283602082015260006040820152838082015260006080820152600060a0820152600060c08201528360e08201526117b061173a565b8382015281526000602082015260006040820152600083820152600060808201528260a08201528260c08201528260e08201520152565b604051906117f48261167b565b600060a083611801611759565b8152826020820152826040820152826060820152606060808201520152565b6040519061182d826116fe565b6000608083828152826020820152606060408201526060808201520152565b60405190611859826116ac565b6000602083611866611759565b81520152565b6001600160401b03811161169657601f01601f191660200190565b3d156118b2573d906118988261186c565b916118a66040519384611719565b82523d6000602084013e565b606090565b51908160030b82036101bc57565b519081151582036101bc57565b91908260409103126101bc5761153760206118ec846118b7565b93016118c5565b81601f820112156101bc576020815191019061190e8161186c565b9261191c6040519485611719565b818452818301116101bc5761153791602084019061118c565b51906001600160a01b03821682036101bc57565b51908160070b82036101bc57565b6001600160401b0381116116965760051b60200190565b91909160a0818403126101bc5760405190611988826116fe565b8193611993826118c5565b83526119a160208301611935565b602084015260408201516001600160401b0381116101bc57816119c59184016118f3565b60408401526060820151906001600160401b0382116101bc57826119f2608094926119fd948694016118f3565b606086015201611935565b910152565b91908260609103126101bc57604051611a1a816116c7565b60406119fd818395611a2b81611949565b8552611a3960208201611935565b602086015201611949565b81601f820112156101bc57805190611a5b82611957565b92611a696040519485611719565b828452602060a08186019402830101918183116101bc57602001925b828410611a93575050505090565b60a0848303126101bc57602060a091604051611aae816116fe565b611ab787611949565b8152611ac4838801611935565b83820152611ad4604088016118c5565b6040820152611ae5606088016118c5565b6060820152611af660808801611935565b6080820152815201930192611a85565b81601f820112156101bc57805190611b1d82611957565b92611b2b6040519485611719565b828452602060c08186019402830101918183116101bc57602001925b828410611b55575050505090565b60c0848303126101bc57602060c091604051611b708161167b565b611b7987611949565b8152611b86838801611949565b83820152611b9660408801611949565b6040820152611ba760608801611949565b6060820152611bb8608088016118c5565b6080820152611bc960a08801611935565b60a0820152815201930192611b47565b81601f820112156101bc57805190611bf082611957565b92611bfe6040519485611719565b828452602060c08186019402830101918183116101bc57602001925b828410611c28575050505090565b60c0848303126101bc57602060c091604051611c438161167b565b611c4c87611949565b8152611c59838801611949565b83820152611c6960408801611949565b6040820152611c7a60608801611935565b6060820152611c8b608088016118c5565b6080820152611c9c60a08801611935565b60a0820152815201930192611c1a565b9190610120838203126101bc5760405190611cc6826116e2565b819380516001600160401b0381116101bc578101610160818403126101bc5760405190611cf2826116e2565b80516001600160401b0381116101bc5784611d0e9183016118f3565b825260208101516001600160401b0381116101bc5784611d2f9183016118f3565b6020830152611d4060408201611935565b604083015260608101516001600160401b0381116101bc5784611d649183016118f3565b6060830152611d75608082016118c5565b6080830152611d8660a08201611949565b60a0830152611d9760c082016118c5565b60c083015260e08101516001600160401b0381116101bc57810184601f820112156101bc57805190611dc882611957565b91611dd66040519384611719565b80835260208084019160051b830101918783116101bc57908160208995949301915b838310611ef0575050505060e0840152611e159161010001611a02565b6101008201528352611e2960208201611949565b6020840152611e3a604082016118c5565b6040840152611e4b606082016118c5565b6060840152611e5c608082016118c5565b608084015260a08101516001600160401b0381116101bc5782611e80918301611a44565b60a084015260c08101516001600160401b0381116101bc5782611ea4918301611b06565b60c084015260e08101516001600160401b0381116101bc5782611ec8918301611bd9565b60e0840152610100810151916001600160401b0383116101bc57610100926119fd92016118f3565b90918093949550516001600160401b0381116101bc578201906040828b03601f1901126101bc5760405190611f24826116ac565b602083015182526040830151916001600160401b0383116101bc57611f518c60208096958196010161196e565b8382015281520192019088949392611df856fea26469706673582212209684b6e4d90a86f8e477536348157063e8ed98a6cd8465abc54da99bed8b5b0564736f6c634300081d0033",
+  "deployedBytecode": "0x608080604052600436101561001357600080fd5b60003560e01c90816315cc83c6146110545750806358d18a9b14610f275780635e19b21614610e4e5780635e4ea29a14610d7457806364b2164d14610c6f5780636a0c408014610b955780638f90d8ab14610a4c5780639870ae2614610962578063a29d040914610876578063bd3f267d146106b5578063de85a43714610580578063e89ccba214610421578063f0bb73dc14610323578063f17a3704146101c15763f31bbd4c146100c457600080fd5b346101bc5760403660031901126101bc576000806100e061114a565b6101236101316100ee611160565b6040516346de0fb160e01b602082019081526001600160a01b0395861660248301529490911660448201529182906064820190565b03601f198101835282611719565b5190826101675af1610141611887565b90156101b05761015c816020806016945183010191016118d2565b91905b60030b0361019f576020907f4201dfb4e0dfb05a2559eac13eafcdc97ea04887a8c558fab4c144d0a479899b8260405192151592838152a1604051908152f35b6374004e7960e11b60005260046000fd5b5060006016601561015f565b600080fd5b346101bc5760203660031901126101bc576101da61114a565b6101e261184c565b506000806101ee61184c565b926040516020810191633f28a19b60e01b835260018060a01b031660248201526024815261021d604482611719565b5190826101675af19061022e611887565b9115610318575080518101906040818303126101bc57610250602082016118b7565b906040810151906001600160401b0382116101bc5701906040828403126101bc576040519261027e846116ac565b60208301516001600160401b0381116101bc576016936102ab6040926020806102b3960191840101611cac565b8652016118b7565b60208401525b60030b0361030757610303907fd0715cecbd3526856211e73e140b8691510b2d0384ea5af48967e15791202b9e604051806102f48482611653565b0390a160405191829182611653565b0390f35b631fbc7c8f60e01b60005260046000fd5b9050601660156102b9565b346101bc5760603660031901126101bc5760008061033f61114a565b610347611160565b610390610352611176565b60405163927da10560e01b602082019081526001600160a01b0395861660248301529385166044820152931660648401529091908160848101610123565b5190826101675af16103a0611887565b9015610415576040818051810103126101bc57601660406103c3602084016118b7565b920151915b60030b03610404576020907fb960ebf065966969da9ffeb07fa131d57456535bffdec2ed2844e0bd987e2c4282604051838152a1604051908152f35b63b9382f0760e01b60005260046000fd5b506000601660156103c8565b346101bc5760203660031901126101bc5760008061043d61114a565b604051630573b08d60e51b602082019081526001600160a01b039092166024808301919091528152610470604482611719565b5190826101675af1610480611887565b90156105725780518101608082602083019203126101bc576104a4602083016118b7565b9160408101516001600160401b0381116101bc578260206104c792840101611a44565b9060608101516001600160401b0381116101bc578360206104ea92840101611b06565b926080820151906001600160401b0382116101bc57602061050f926016940101611bd9565b93919293915b60030b0361056157610303907f0d5ce52294a8f97837267fbbb3f0d83cb5edb26c147e6740cfb5e2bfeaf2aad6604051806105528488888461161c565b0390a16040519384938461161c565b634c85126960e01b60005260046000fd5b506060808060166015610515565b346101bc5760403660031901126101bc5761059961114a565b6105a1611820565b506000806105ad611820565b926040516020810191631e26e99760e11b835260018060a01b031660248201526024356044820152604481526105e4606482611719565b5190826101675af1906105f5611887565b91156106aa5750805181016040828203126101bc57610616602083016118b7565b916040810151906001600160401b0382116101bc57602061063e92816016950192010161196e565b915b60030b0361069957610303907f3f6422bb82ff7a8689b2c076298d1b2a8720d9f557fcd612a81154dc88082d83604051602081528061068260208201856111d4565b0390a16040519182916020835260208301906111d4565b63664cb42360e01b60005260046000fd5b905060166015610640565b346101bc576000806106c636611577565b92906106d06117e7565b506101236107176106df6117e7565b60405163050fc3b560e31b602082019081526001600160a01b03909516602482015260079790970b6044880152959182906064820190565b5190826101675af190610728611887565b911561086b57508051810160208101916040818303126101bc5761074e602082016118b7565b906040810151906001600160401b0382116101bc57019160c090839003126101bc576040519261077d8461167b565b60208301516001600160401b0381116101bc5781602061079f92860101611cac565b84526107ad60408401611949565b60208501526107be60608401611935565b60408501526107cf60808401611949565b606085015260a0830151906001600160401b0382116101bc57836107ff60c092602061080a9560169801016118f3565b608087015201611935565b60a08401525b60030b0361085a57610303907fdab074acf5f707b9aee79865ae646df76d8bfa02971d97e18a0dd87bccee9bbd6040518061084b84826115a7565b0390a1604051918291826115a7565b63b12473af60e01b60005260046000fd5b905060166015610810565b346101bc5760203660031901126101bc5760008061089261114a565b6040516393272baf60e01b602082019081526001600160a01b0390921660248083019190915281526108c5604482611719565b5190826101675af16108d5611887565b9015610956576040818051810103126101bc57601661090260406108fb602085016118b7565b93016118b7565b915b60030b03610945576020907f83bea5ce1210e5f38206474e1ccea3e947bb2f4b183858e4b33a2c2280e265f7826040519260030b92838152a1604051908152f35b635d4b19cf60e11b60005260046000fd5b50600060166015610904565b346101bc5760403660031901126101bc5760008061097e61114a565b6101236109c161098c611160565b604051633cb0c7fd60e21b602082019081526001600160a01b0395861660248301529490911660448201529182906064820190565b5190826101675af16109d1611887565b9015610a40576109ec816020806016945183010191016118d2565b91905b60030b03610a2f576020907fa2fb81d2c4828e139799e8be1ffa81cd8f4229459b2946e9d3916fddb366fa2e8260405192151592838152a1604051908152f35b63711425f760e11b60005260046000fd5b506000601660156109ef565b346101bc5760203660031901126101bc57610a6561114a565b610a6d61173a565b50600080610a7961173a565b926040516020810191631ac299b760e31b835260018060a01b0316602482015260248152610aa8604482611719565b5190826101675af190610ab9611887565b9115610b8a575080518101906080818303126101bc57610aed8160406020610ae481601696016118b7565b95019101611a02565b915b60030b03610b79576060907f367d3a502c2227b77b2d98ac6516f7e9c04bdc0791611a06d70591538ebecee682604051610b4b818560408091805160070b845260018060a01b036020820151166020850152015160070b910152565ba1604080518251600790810b82526020808501516001600160a01b0316908301529282015190920b90820152f35b63303d457360e21b60005260046000fd5b905060166015610aef565b346101bc5760203660031901126101bc57600080610bb161114a565b6040516319f3736160e01b602082019081526001600160a01b039092166024808301919091528152610be4604482611719565b5190826101675af1610bf4611887565b9015610c6357610c0f816020806016945183010191016118d2565b91905b60030b03610c52576020907f5080c42cc33acbcea410fa6eaa925bd878674825501981184fdd53749f8478a88260405192151592838152a1604051908152f35b634050963360e01b60005260046000fd5b50600060166015610c12565b346101bc57600080610cc0610123610c8636611577565b6040516304c791b360e11b602082019081526001600160a01b03909316602482015260079190910b60448201529092909182906064820190565b5190826101675af1610cd0611887565b9015610d68576040818051810103126101bc576040610cf1602083016118b7565b9101516001600160a01b03811691908290036101bc5760169060030b5b60030b03610d57576040516001600160a01b039091168082526020917fc94f645408f5f9debf737eb96c340091e399ce9871592da6231f91d329675338908390a1604051908152f35b63e460426160e01b60005260046000fd5b50600060166015610d0e565b346101bc5760203660031901126101bc57600080610d9061114a565b60405163a7daa18d60e01b602082019081526001600160a01b039092166024808301919091528152610dc3604482611719565b5190826101675af1610dd3611887565b9015610e4257610dee816020806016945183010191016118d2565b91905b60030b03610e31576020907f6ab5945f293e879dd97c678ef2ea7222108b42b253b599bb3ca20fed76cc7bf38260405192151592838152a1604051908152f35b63f6e464e960e01b60005260046000fd5b50600060166015610df1565b346101bc5760203660031901126101bc57600080610e6a61114a565b60405163335e04c160e01b602082019081526001600160a01b039092166024808301919091528152610e9d604482611719565b5190826101675af1610ead611887565b9015610f1b57610ec8816020806016945183010191016118d2565b91905b60030b03610f0b576020907f5d3abc148c71e7f8642162046e53bdbc00c7fa8b7ac3bcde38153a222ecc5b518260405192151592838152a1604051908152f35b62629e9d60e81b60005260046000fd5b50600060166015610ecb565b346101bc5760203660031901126101bc57610f4061114a565b610f48611759565b50600080610f54611759565b926040516020810191631f69565f60e01b835260018060a01b0316602482015260248152610f83604482611719565b5190826101675af190610f94611887565b91156110495750805181016040828203126101bc57610fb5602083016118b7565b916040810151906001600160401b0382116101bc576020610fdd928160169501920101611cac565b915b60030b0361103857610303907f67179d96dbb10d5e87f0d919e87917fc6b1f13ea2fb4060c9e607e796d8d2946604051602081528061102160208201856113a6565b0390a16040519182916020835260208301906113a6565b632a5292c160e11b60005260046000fd5b905060166015610fdf565b346101bc5760603660031901126101bc576000809161107161114a565b906110bf81610123611081611160565b611089611176565b63f49f40db60e01b602085019081526001600160a01b039788166024860152918716604485015290951660648301526084820190565b5190826101675af16110cf611887565b901561113e576110ea816020806016945183010191016118d2565b91905b60030b0361112d576020907f20036055d1f68e359fb691e93d64cd8de5ed7b15a6193107e97583a6f9afc1218260405192151592838152a1604051908152f35b63c30cd94160e01b60005260046000fd5b506000601660156110ed565b600435906001600160a01b03821682036101bc57565b602435906001600160a01b03821682036101bc57565b604435906001600160a01b03821682036101bc57565b60005b83811061119f5750506000910152565b818101518382015260200161118f565b906020916111c88151809281855285808601910161118c565b601f01601f1916010190565b9081511515815260018060a01b036020830151166020820152608061121d61120b604085015160a0604086015260a08501906111af565b606085015184820360608601526111af565b928101516001600160a01b031691015290565b906020808351928381520192019060005b81811061124e5750505090565b8251805160070b85526020818101516001600160a01b0390811682880152604080840151151590880152606080840151151590880152608092830151169186019190915260a09094019390920191600101611241565b906020808351928381520192019060005b8181106112c25750505090565b909192602060c06001928651805160070b82528381015160070b84830152604081015160070b6040830152606081015160070b606083015260808101511515608083015260a08580821b039101511660a082015201940191019190916112b5565b906020808351928381520192019060005b8181106113415750505090565b909192602060c06001928651805160070b82528381015160070b84830152604081015160070b6040830152848060a01b03606082015116606083015260808101511515608083015260a08580821b039101511660a08201520194019101919091611334565b91909180519261012081526114146113e86113d086516101606101208601526102808501906111af565b602087015184820361011f19016101408601526111af565b60408601516001600160a01b0316610160840152606086015183820361011f19016101808501526111af565b93608081015115156101a083015260a081015160070b6101c083015260c081015115156101e083015260e08101519061011f1983870301610200840152815180875260208701906020808260051b8a01019401916000905b82821061153a5750505050611537949550611513611501610100936114be8561152595015161022088019060408091805160070b845260018060a01b036020820151166020850152015160070b910152565b602087015160070b602087015260408701511515604087015260608701511515606087015260808701511515608087015260a087015186820360a0880152611230565b60c086015185820360c08701526112a4565b60e085015184820360e0860152611323565b920151906101008184039101526111af565b90565b909192946020806115696001938d601f199082030186526040838b5180518452015191818582015201906111d4565b97019201920190929161146c565b60409060031901126101bc576004356001600160a01b03811681036101bc57906024358060070b81036101bc5790565b6020815260c06116076115c5845183602086015260e08501906113a6565b602085015160070b604085015260018060a01b036040860151166060850152606085015160070b60808501526080850151601f198583030160a08601526111af565b60a0909301516001600160a01b031691015290565b91611645906116376115379593606086526060860190611230565b9084820360208601526112a4565b916040818403910152611323565b602081526040602061166f8451838386015260608501906113a6565b93015160030b91015290565b60c081019081106001600160401b0382111761169657604052565b634e487b7160e01b600052604160045260246000fd5b604081019081106001600160401b0382111761169657604052565b606081019081106001600160401b0382111761169657604052565b61012081019081106001600160401b0382111761169657604052565b60a081019081106001600160401b0382111761169657604052565b90601f801991011681019081106001600160401b0382111761169657604052565b60405190611747826116c7565b60006040838281528260208201520152565b60405190611766826116e2565b606061010083604051611778816116e2565b83815283602082015260006040820152838082015260006080820152600060a0820152600060c08201528360e08201526117b061173a565b8382015281526000602082015260006040820152600083820152600060808201528260a08201528260c08201528260e08201520152565b604051906117f48261167b565b600060a083611801611759565b8152826020820152826040820152826060820152606060808201520152565b6040519061182d826116fe565b6000608083828152826020820152606060408201526060808201520152565b60405190611859826116ac565b6000602083611866611759565b81520152565b6001600160401b03811161169657601f01601f191660200190565b3d156118b2573d906118988261186c565b916118a66040519384611719565b82523d6000602084013e565b606090565b51908160030b82036101bc57565b519081151582036101bc57565b91908260409103126101bc5761153760206118ec846118b7565b93016118c5565b81601f820112156101bc576020815191019061190e8161186c565b9261191c6040519485611719565b818452818301116101bc5761153791602084019061118c565b51906001600160a01b03821682036101bc57565b51908160070b82036101bc57565b6001600160401b0381116116965760051b60200190565b91909160a0818403126101bc5760405190611988826116fe565b8193611993826118c5565b83526119a160208301611935565b602084015260408201516001600160401b0381116101bc57816119c59184016118f3565b60408401526060820151906001600160401b0382116101bc57826119f2608094926119fd948694016118f3565b606086015201611935565b910152565b91908260609103126101bc57604051611a1a816116c7565b60406119fd818395611a2b81611949565b8552611a3960208201611935565b602086015201611949565b81601f820112156101bc57805190611a5b82611957565b92611a696040519485611719565b828452602060a08186019402830101918183116101bc57602001925b828410611a93575050505090565b60a0848303126101bc57602060a091604051611aae816116fe565b611ab787611949565b8152611ac4838801611935565b83820152611ad4604088016118c5565b6040820152611ae5606088016118c5565b6060820152611af660808801611935565b6080820152815201930192611a85565b81601f820112156101bc57805190611b1d82611957565b92611b2b6040519485611719565b828452602060c08186019402830101918183116101bc57602001925b828410611b55575050505090565b60c0848303126101bc57602060c091604051611b708161167b565b611b7987611949565b8152611b86838801611949565b83820152611b9660408801611949565b6040820152611ba760608801611949565b6060820152611bb8608088016118c5565b6080820152611bc960a08801611935565b60a0820152815201930192611b47565b81601f820112156101bc57805190611bf082611957565b92611bfe6040519485611719565b828452602060c08186019402830101918183116101bc57602001925b828410611c28575050505090565b60c0848303126101bc57602060c091604051611c438161167b565b611c4c87611949565b8152611c59838801611949565b83820152611c6960408801611949565b6040820152611c7a60608801611935565b6060820152611c8b608088016118c5565b6080820152611c9c60a08801611935565b60a0820152815201930192611c1a565b9190610120838203126101bc5760405190611cc6826116e2565b819380516001600160401b0381116101bc578101610160818403126101bc5760405190611cf2826116e2565b80516001600160401b0381116101bc5784611d0e9183016118f3565b825260208101516001600160401b0381116101bc5784611d2f9183016118f3565b6020830152611d4060408201611935565b604083015260608101516001600160401b0381116101bc5784611d649183016118f3565b6060830152611d75608082016118c5565b6080830152611d8660a08201611949565b60a0830152611d9760c082016118c5565b60c083015260e08101516001600160401b0381116101bc57810184601f820112156101bc57805190611dc882611957565b91611dd66040519384611719565b80835260208084019160051b830101918783116101bc57908160208995949301915b838310611ef0575050505060e0840152611e159161010001611a02565b6101008201528352611e2960208201611949565b6020840152611e3a604082016118c5565b6040840152611e4b606082016118c5565b6060840152611e5c608082016118c5565b608084015260a08101516001600160401b0381116101bc5782611e80918301611a44565b60a084015260c08101516001600160401b0381116101bc5782611ea4918301611b06565b60c084015260e08101516001600160401b0381116101bc5782611ec8918301611bd9565b60e0840152610100810151916001600160401b0383116101bc57610100926119fd92016118f3565b90918093949550516001600160401b0381116101bc578201906040828b03601f1901126101bc5760405190611f24826116ac565b602083015182526040830151916001600160401b0383116101bc57611f518c60208096958196010161196e565b8382015281520192019088949392611df856fea26469706673582212209684b6e4d90a86f8e477536348157063e8ed98a6cd8465abc54da99bed8b5b0564736f6c634300081d0033",
+  "linkReferences": {},
+  "deployedLinkReferences": {}
+}

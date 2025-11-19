@@ -1,0 +1,166 @@
+{
+  "_format": "hh-sol-artifact-1",
+  "contractName": "IPAssetLocker",
+  "sourceName": "contracts/IPAssetLocker.sol",
+  "abi": [
+    {
+      "inputs": [
+        {"internalType": "address", "name": "ipAssetManager_", "type": "address"},
+        {"internalType": "address", "name": "arbitrationContract_", "type": "address"},
+        {"internalType": "address", "name": "owner_", "type": "address"}
+      ],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "inputs": [],
+      "name": "lockIPAsset",
+      "outputs": [{"internalType": "bool", "name": "success", "type": "bool"}],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {"internalType": "uint256", "name": "ipAssetId", "type": "uint256"},
+        {"internalType": "uint256", "name": "hbarAmount", "type": "uint256"}
+      ],
+      "name": "lockIPAsset",
+      "outputs": [{"internalType": "bool", "name": "success", "type": "bool"}],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {"internalType": "uint256", "name": "ipAssetId", "type": "uint256"},
+        {"internalType": "uint256", "name": "hbarAmount", "type": "uint256"}
+      ],
+      "name": "unlockIPAsset",
+      "outputs": [{"internalType": "bool", "name": "success", "type": "bool"}],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [{"internalType": "uint256", "name": "ipAssetId", "type": "uint256"}],
+      "name": "isIPAssetLocked",
+      "outputs": [{"internalType": "bool", "name": "locked", "type": "bool"}],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [{"internalType": "uint256", "name": "ipAssetId", "type": "uint256"}],
+      "name": "getLockedAmount",
+      "outputs": [{"internalType": "uint256", "name": "amount", "type": "uint256"}],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [{"internalType": "uint256", "name": "ipAssetId", "type": "uint256"}],
+      "name": "isIPAssetEligibleForLocking",
+      "outputs": [{"internalType": "bool", "name": "eligible", "type": "bool"}],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [{"internalType": "address", "name": "user", "type": "address"}],
+      "name": "getUserLockedIPAssets",
+      "outputs": [{"internalType": "uint256[]", "name": "ipAssetIds", "type": "uint256[]"}],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getTotalMintedHBAR",
+      "outputs": [{"internalType": "uint256", "name": "total", "type": "uint256"}],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "totalLockedAssets",
+      "outputs": [{"internalType": "uint256", "name": "", "type": "uint256"}],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {"internalType": "uint256", "name": "ipAssetId", "type": "uint256"}
+      ],
+      "name": "getIPAssetEligibilityDetails",
+      "outputs": [
+        {"internalType": "bool", "name": "eligible", "type": "bool"},
+        {"internalType": "string", "name": "reason", "type": "string"},
+        {"internalType": "bool", "name": "assetExists", "type": "bool"},
+        {"internalType": "bool", "name": "isActive", "type": "bool"},
+        {"internalType": "bool", "name": "arbitrationEligible", "type": "bool"},
+        {"internalType": "bool", "name": "infringementDetected", "type": "bool"},
+        {"internalType": "bool", "name": "alreadyLocked", "type": "bool"}
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {"internalType": "address", "name": "to", "type": "address"},
+        {"internalType": "uint256", "name": "amount", "type": "uint256"},
+        {"internalType": "uint256", "name": "ipAssetId", "type": "uint256"}
+      ],
+      "name": "mintHBARTokens",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {"internalType": "address", "name": "from", "type": "address"},
+        {"internalType": "uint256", "name": "amount", "type": "uint256"},
+        {"internalType": "uint256", "name": "ipAssetId", "type": "uint256"}
+      ],
+      "name": "burnHBARTokens",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {"indexed": true, "internalType": "address", "name": "owner", "type": "address"},
+        {"indexed": true, "internalType": "uint256", "name": "ipAssetId", "type": "uint256"},
+        {"indexed": false, "internalType": "uint256", "name": "hbarAmount", "type": "uint256"},
+        {"indexed": false, "internalType": "uint256", "name": "timestamp", "type": "uint256"}
+      ],
+      "name": "IPAssetLocked",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {"indexed": true, "internalType": "address", "name": "owner", "type": "address"},
+        {"indexed": true, "internalType": "uint256", "name": "ipAssetId", "type": "uint256"},
+        {"indexed": false, "internalType": "uint256", "name": "hbarAmount", "type": "uint256"},
+        {"indexed": false, "internalType": "uint256", "name": "timestamp", "type": "uint256"}
+      ],
+      "name": "IPAssetUnlocked",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {"indexed": true, "internalType": "address", "name": "to", "type": "address"},
+        {"indexed": false, "internalType": "uint256", "name": "amount", "type": "uint256"},
+        {"indexed": true, "internalType": "uint256", "name": "ipAssetId", "type": "uint256"}
+      ],
+      "name": "HBARTokensMinted",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {"indexed": true, "internalType": "address", "name": "from", "type": "address"},
+        {"indexed": false, "internalType": "uint256", "name": "amount", "type": "uint256"},
+        {"indexed": true, "internalType": "uint256", "name": "ipAssetId", "type": "uint256"}
+      ],
+      "name": "HBARTokensBurned",
+      "type": "event"
+    }
+  ]
+}

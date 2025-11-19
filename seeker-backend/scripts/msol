@@ -1,0 +1,29 @@
+#!/bin/bash
+
+if [ "$#" -ne 1 ]; then
+  echo "Usage: $0 <ContractName>"
+  exit 1
+fi
+
+CONTRACT_NAME=$1
+CONTRACT_PATH="contracts/${CONTRACT_NAME}.sol"
+OUTPUT_DIR="abi"
+OUTPUT_PATH="${OUTPUT_DIR}/${CONTRACT_NAME}.json"
+
+if [ ! -f "$CONTRACT_PATH" ]; then
+  echo "File not found: $CONTRACT_PATH"
+  exit 1
+fi
+
+# Ensure the abi folder exists
+mkdir -p "$OUTPUT_DIR"
+
+# Compile using solc --combined-json and extract the target contract using jq
+SOLC_OUTPUT=$(solc --optimize --combined-json abi,bin "$CONTRACT_PATH")
+CONTRACT_KEY="${CONTRACT_PATH}:${CONTRACT_NAME}"
+echo "$SOLC_OUTPUT" | jq --arg key "$CONTRACT_KEY" '.contracts[$key]' > "$OUTPUT_PATH"
+
+echo "Compiled contract saved to ${OUTPUT_PATH}"
+
+
+pnpx tsx ./deploy.ts $CONTRACT_NAME

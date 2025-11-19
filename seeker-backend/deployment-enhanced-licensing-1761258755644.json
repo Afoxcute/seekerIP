@@ -1,0 +1,31 @@
+{
+  "network": "hedera_testnet",
+  "deployer": "0x9404966338eB27aF420a952574d777598Bbb58c4",
+  "timestamp": "2025-10-23T22:32:35.644Z",
+  "contracts": {
+    "EnhancedLicensingManager": {
+      "address": "0x84441AC3855C5a301044C1825375D5813adffA96",
+      "owner": "0x9404966338eB27aF420a952574d777598Bbb58c4",
+      "complianceManager": "0x60A1d2CEf7fcdcf97d897ffd7c7908539978880c",
+      "supportedJurisdictions": [
+        "US",
+        "EU",
+        "UK",
+        "CA",
+        "AU",
+        "JP",
+        "CN",
+        "IN",
+        "BR",
+        "MX",
+        "KE",
+        "NG",
+        "ZA",
+        "GLOBAL"
+      ]
+    }
+  },
+  "gasUsed": {
+    "deployment": "TBD"
+  }
+}

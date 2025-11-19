@@ -1,0 +1,8 @@
+{
+  "network": "hedera_testnet",
+  "timestamp": "2025-08-22T22:31:17.527Z",
+  "deployer": "0x9404966338eB27aF420a952574d777598Bbb58c4",
+  "contracts": {
+    "IPAssetManagerEnhanced": "0xd5Fe11eA64d7AD33636a6A7626370Cb2CDe3C21a"
+  }
+}

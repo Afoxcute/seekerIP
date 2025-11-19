@@ -1,0 +1,14 @@
+{
+  "network": "testnet",
+  "deployer": "0x9404966338eB27aF420a952574d777598Bbb58c4",
+  "contracts": {
+    "IPAssetHTSKYC": "0x4430248F3b2304F946f08c43A06C3451657FD658",
+    "IPAssetManagerV2": "0xcBE19598bC8443616A55c0BeD139f9048cb50B06",
+    "HTSToken": "0x00000000000000000000000000000000006c4167"
+  },
+  "collection": {
+    "name": "IntellectualPropertyAssets",
+    "symbol": "IPNFT"
+  },
+  "timestamp": "2025-10-19T22:23:32.064Z"
+}

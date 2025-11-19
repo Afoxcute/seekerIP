@@ -1,0 +1,43 @@
+{
+  "network": "testnet",
+  "deployer": "0x9404966338eB27aF420a952574d777598Bbb58c4",
+  "timestamp": "2025-10-23T14:27:54.109Z",
+  "contracts": {
+    "IPAssetComplianceManager": "0x60A1d2CEf7fcdcf97d897ffd7c7908539978880c",
+    "IPAssetHTSKYC": "0x7C0EA017bA3FB05B2428b804E049Bf5BA166b6E3",
+    "IPAssetManagerV2": "0xfebdD568798467d2ac33A757042822Cd51FA437D",
+    "HTSToken": "0x0000000000000000000000000000000000000000",
+    "IPRightsVerificationManager": "0xf06D5DDdb12B2f90fB3b38f4870bA0b4a05089Be"
+  },
+  "collection": {
+    "name": "IntellectualPropertyAssets",
+    "symbol": "IPNFT",
+    "status": "pending_hts_creation"
+  },
+  "compliance": {
+    "deployerVerified": true,
+    "complianceLevel": "ENHANCED",
+    "entityType": "CORPORATION",
+    "permissions": {
+      "canHoldIPAssets": true,
+      "canTradeIPAssets": true,
+      "canTransferIPAssets": true
+    }
+  },
+  "gasUsed": {
+    "complianceManager": "3479950",
+    "ipAssetNFT": "2323845",
+    "ipAssetManager": "3209435"
+  },
+  "redeployment": {
+    "timestamp": "2025-10-24T14:20:21.632Z",
+    "reason": "Added createHTSCollection function",
+    "oldAddress": "0xfebdD568798467d2ac33A757042822Cd51FA437D"
+  },
+  "verificationDeployment": {
+    "timestamp": "2025-10-30T21:27:28.613Z",
+    "verificationManager": "0xf06D5DDdb12B2f90fB3b38f4870bA0b4a05089Be",
+    "complianceManager": "0x60A1d2CEf7fcdcf97d897ffd7c7908539978880c",
+    "ipAssetManager": "0xfebdD568798467d2ac33A757042822Cd51FA437D"
+  }
+}

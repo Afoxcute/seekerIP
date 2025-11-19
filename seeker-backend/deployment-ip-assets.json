@@ -1,0 +1,11 @@
+{
+  "network": "unknown",
+  "chainId": "296",
+  "deployer": "0x9404966338eB27aF420a952574d777598Bbb58c4",
+  "contracts": {
+    "IPAssetManagerEnhanced": "0x77A7aB9f54b2132B51acF6f36A624b9dcf264ce3",
+    "IPAssetManager": "0x30BD264110f71916f338B132EdD4d35C38138468"
+  },
+  "platformFeeCollector": "0x9404966338eB27aF420a952574d777598Bbb58c4",
+  "deploymentTime": "2025-08-16T09:52:38.338Z"
+}
