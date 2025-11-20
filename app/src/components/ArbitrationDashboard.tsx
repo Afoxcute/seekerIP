@@ -111,7 +111,7 @@ const ArbitrationDashboard: React.FC = () => {
       setError(null);
 
       // Load dispute statistics
-      const statsResponse = await fetch('http://localhost:5000/api/arbitration/stats');
+      const statsResponse = await fetch('https://seekerip-production.up.railway.app/api/arbitration/stats');
       if (statsResponse.ok) {
         const statsData = await statsResponse.json();
         setStats(statsData.data);
@@ -132,7 +132,7 @@ const ArbitrationDashboard: React.FC = () => {
   const checkInfringements = async () => {
     try {
       setLoading(true);
-      const response = await fetch('http://localhost:5000/api/arbitration/check-infringements', {
+      const response = await fetch('https://seekerip-production.up.railway.app/api/arbitration/check-infringements', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -158,7 +158,7 @@ const ArbitrationDashboard: React.FC = () => {
   const loadTokenInfo = async () => {
     try {
       // Check if token is initialized
-      const statusResponse = await fetch('http://localhost:5000/api/arbitration/token-status');
+      const statusResponse = await fetch('https://seekerip-production.up.railway.app/api/arbitration/token-status');
       if (statusResponse.ok) {
         const statusData = await statusResponse.json();
         setTokenInfo(prev => ({ ...prev, isInitialized: statusData.data.isInitialized }));
@@ -167,7 +167,7 @@ const ArbitrationDashboard: React.FC = () => {
       // Load token balance (assuming we have a user address)
       // In a real app, you'd get this from the connected wallet
       const userAddress = '0x1234567890123456789012345678901234567890'; // Placeholder
-      const balanceResponse = await fetch(`http://localhost:5000/api/arbitration/token-balance/${userAddress}`);
+      const balanceResponse = await fetch(`https://seekerip-production.up.railway.app/api/arbitration/token-balance/${userAddress}`);
       if (balanceResponse.ok) {
         const balanceData = await balanceResponse.json();
         setTokenInfo(prev => ({
@@ -186,7 +186,7 @@ const ArbitrationDashboard: React.FC = () => {
   const initializeToken = async () => {
     try {
       setLoading(true);
-      const response = await fetch('http://localhost:5000/api/arbitration/initialize-token', {
+      const response = await fetch('https://seekerip-production.up.railway.app/api/arbitration/initialize-token', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -215,7 +215,7 @@ const ArbitrationDashboard: React.FC = () => {
       }
 
       setLoading(true);
-      const response = await fetch('http://localhost:5000/api/arbitration/stake-tokens', {
+      const response = await fetch('https://seekerip-production.up.railway.app/api/arbitration/stake-tokens', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -246,7 +246,7 @@ const ArbitrationDashboard: React.FC = () => {
       }
 
       setLoading(true);
-      const response = await fetch('http://localhost:5000/api/arbitration/unstake-tokens', {
+      const response = await fetch('https://seekerip-production.up.railway.app/api/arbitration/unstake-tokens', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -272,7 +272,7 @@ const ArbitrationDashboard: React.FC = () => {
   const claimRewards = async () => {
     try {
       setLoading(true);
-      const response = await fetch('http://localhost:5000/api/arbitration/claim-rewards', {
+      const response = await fetch('https://seekerip-production.up.railway.app/api/arbitration/claim-rewards', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -296,7 +296,7 @@ const ArbitrationDashboard: React.FC = () => {
   const handleRaiseDispute = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:5000/api/arbitration/raise-dispute', {
+      const response = await fetch('https://seekerip-production.up.railway.app/api/arbitration/raise-dispute', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -321,7 +321,7 @@ const ArbitrationDashboard: React.FC = () => {
   const handleCastVote = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:5000/api/arbitration/cast-vote', {
+      const response = await fetch('https://seekerip-production.up.railway.app/api/arbitration/cast-vote', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -347,7 +347,7 @@ const ArbitrationDashboard: React.FC = () => {
     if (!confirm('Are you sure you want to resolve this dispute?')) return;
 
     try {
-      const response = await fetch('http://localhost:5000/api/arbitration/resolve-dispute', {
+      const response = await fetch('https://seekerip-production.up.railway.app/api/arbitration/resolve-dispute', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -373,7 +373,7 @@ const ArbitrationDashboard: React.FC = () => {
     if (!arbitratorAddress) return;
 
     try {
-      const response = await fetch('http://localhost:5000/api/arbitration/escalate-dispute', {
+      const response = await fetch('https://seekerip-production.up.railway.app/api/arbitration/escalate-dispute', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

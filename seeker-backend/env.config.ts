@@ -39,7 +39,7 @@ export const config = {
 
   // Yakoa Backend Configuration
   yakoa: {
-    backendUrl: process.env.YAKOA_BACKEND_URL || 'http://localhost:5000',
+    backendUrl: process.env.YAKOA_BACKEND_URL || 'https://seekerip-production.up.railway.app',
     apiKey: process.env.YAKOA_API_KEY || 'mdZ6ftFaSJ1c1HjkiPmUCFOADHM4V49ZXzo6mD80',
     subdomain: process.env.YAKOA_SUBDOMAIN || 'docs-demo',
     network: process.env.YAKOA_NETWORK || 'docs-demo',
