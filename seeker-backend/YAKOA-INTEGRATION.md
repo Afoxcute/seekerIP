@@ -236,7 +236,7 @@ curl https://seekerip-production.up.railway.app
 
 Both services provide comprehensive logging:
 
-- **Seeker Backend**: Console logs with emoji indicators
+- **Seeker Backend**: Console logs with emoji indicato
 - **Yakoa Backend**: Detailed API request/response logging
 
 ### Error Handling
