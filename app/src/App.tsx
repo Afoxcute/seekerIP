@@ -29,7 +29,7 @@ import CONTRACT_ADDRESS_JSON from "./deployed_addresses.json";
 import IPAssetManagerV2ABI from "./abi/IPAssetManagerV2.json";
 
 // Backend API configuration
-const BACKEND_URL = "https://seekerip-production.up.railway.app";
+const BACKEND_URL = "http://localhost:5000";
 
 // File validation and preview utilities
 const MAX_FILE_SIZE_MB = 50; // Maximum file size in megabytes
