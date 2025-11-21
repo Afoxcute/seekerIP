@@ -196,6 +196,16 @@ const parseMetadata = async (metadataUri: string) => {
   try {
     console.log('Parsing metadata from URI:', metadataUri);
     
+    // Handle empty or null metadata
+    if (!metadataUri || metadataUri.trim() === '' || metadataUri === '0x') {
+      console.log('Empty metadata URI, returning defaults');
+      return {
+        name: "Unnamed Asset",
+        description: "No description available",
+        image: null
+      };
+    }
+    
     // If metadata is a direct JSON string, parse it
     if (metadataUri.startsWith('{')) {
       const metadata = JSON.parse(metadataUri);
@@ -250,16 +260,16 @@ const parseMetadata = async (metadataUri: string) => {
     // Default fallback
     console.log('Using fallback metadata for URI:', metadataUri);
     return {
-      name: "Unknown",
+      name: "Unnamed Asset",
       description: "No description available",
       image: metadataUri // Use the URI as image if it's not JSON
     };
   } catch (error) {
     console.error('Error parsing metadata:', error);
     return {
-      name: "Unknown",
+      name: "Unnamed Asset",
       description: "No description available",
-      image: metadataUri // Use the URI as image as fallback
+      image: null // Use null as fallback image
     };
   }
 }; 
@@ -293,8 +303,6 @@ interface IPAsset {
   registrationDate: bigint;
   totalRevenue: bigint;
   royaltyTokens: bigint;
-  name?: string;
-  description?: string;
 }
 
 interface License {
@@ -645,15 +653,13 @@ export default function App({ thirdwebClient }: AppProps) {
           });
           newIpAssets.set(Number(assetId), {
             owner: ipAsset[1], // owner
-            ipHash: ipAsset[12], // ipfsHash (mapped to ipHash for compatibility)
-            metadata: ipAsset[4], // metadataURI
+            ipHash: ipAsset[2], // ipHash
+            metadata: ipAsset[3], // metadata
             isEncrypted: false, // Default value since contract doesn't have this field
-            isDisputed: false, // IPAssetManagerV2 doesn't have isDisputed field
-            registrationDate: ipAsset[5], // createdAt
-            totalRevenue: ipAsset[9], // totalRevenue
-            royaltyTokens: BigInt(0), // IPAssetManagerV2 doesn't have royaltyTokens field
-            name: ipAsset[2], // name from contract
-            description: ipAsset[3], // description from contract
+            isDisputed: ipAsset[5], // isDisputed
+            registrationDate: ipAsset[6], // registrationDate
+            totalRevenue: ipAsset[7], // totalRevenue
+            royaltyTokens: ipAsset[8], // royaltyTokens
           });
         } catch (error) {
           console.error(`Error loading IP asset ${assetId}:`, error);
@@ -670,20 +676,12 @@ export default function App({ thirdwebClient }: AppProps) {
           console.log(`Parsing metadata for token ${id}:`, asset.metadata);
           const metadata = await parseMetadata(asset.metadata);
           console.log(`Successfully parsed metadata for token ${id}:`, metadata);
-          
-          // Merge contract name/description with parsed metadata
-          const mergedMetadata = {
-            name: asset.name || metadata.name || "Unknown",
-            description: asset.description || metadata.description || "No description available",
-            ...metadata
-          };
-          
-          newParsedMetadata.set(id, mergedMetadata);
+          newParsedMetadata.set(id, metadata);
         } catch (error) {
           console.error(`Error parsing metadata for token ${id}:`, error);
           newParsedMetadata.set(id, {
-            name: asset.name || "Unknown",
-            description: asset.description || "No description available",
+            name: "Unknown",
+            description: "No description available",
             image: asset.ipHash // Use the IP hash as fallback image
           });
         }
@@ -763,15 +761,13 @@ export default function App({ thirdwebClient }: AppProps) {
           if (ipAsset[1] && ipAsset[1] !== "0x0000000000000000000000000000000000000000") {
             allIpAssets.set(assetId, {
               owner: ipAsset[1], // owner
-              ipHash: ipAsset[12], // ipfsHash (mapped to ipHash for compatibility)
-              metadata: ipAsset[4], // metadataURI
+              ipHash: ipAsset[2], // ipHash
+              metadata: ipAsset[3], // metadata
               isEncrypted: false, // Default value since contract doesn't have this field
-              isDisputed: false, // IPAssetManagerV2 doesn't have isDisputed field
-              registrationDate: ipAsset[5], // createdAt
-              totalRevenue: ipAsset[9], // totalRevenue
-              royaltyTokens: BigInt(0), // IPAssetManagerV2 doesn't have royaltyTokens field
-              name: ipAsset[2], // name from contract
-              description: ipAsset[3], // description from contract
+              isDisputed: ipAsset[5], // isDisputed
+              registrationDate: ipAsset[6], // registrationDate
+              totalRevenue: ipAsset[7], // totalRevenue
+              royaltyTokens: ipAsset[8], // royaltyTokens
             });
           }
         } catch (error) {
@@ -792,20 +788,12 @@ export default function App({ thirdwebClient }: AppProps) {
           console.log(`Parsing metadata for all asset ${id}:`, asset.metadata);
           const metadata = await parseMetadata(asset.metadata);
           console.log(`Successfully parsed metadata for all asset ${id}:`, metadata);
-          
-          // Merge contract name/description with parsed metadata
-          const mergedMetadata = {
-            name: asset.name || metadata.name || "Unknown",
-            description: asset.description || metadata.description || "No description available",
-            ...metadata
-          };
-          
-          newAllParsedMetadata.set(id, mergedMetadata);
+          newAllParsedMetadata.set(id, metadata);
         } catch (error) {
           console.error(`Error parsing metadata for all asset ${id}:`, error);
           newAllParsedMetadata.set(id, {
-            name: asset.name || "Unknown",
-            description: asset.description || "No description available",
+            name: "Unknown",
+            description: "No description available",
             image: asset.ipHash // Use the IP hash as fallback image
           });
         }
