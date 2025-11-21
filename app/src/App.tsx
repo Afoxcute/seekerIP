@@ -28,7 +28,7 @@ import IPAssetManagerV2ABI from "./abi/IPAssetManagerV2.json";
 import { hederaTestnet } from "./services/contractService";
 
 // Backend API configuration
-const BACKEND_URL = "http://localhost:5000";
+const BACKEND_URL = "https://seekerip-production-f87d.up.railway.app";
 
 // File validation and preview utilities
 const MAX_FILE_SIZE_MB = 50; // Maximum file size in megabytes

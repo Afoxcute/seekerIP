@@ -35,7 +35,7 @@ PLATFORM_FEE_PERCENTAGE=250
 PLATFORM_FEE_COLLECTOR=0x9404966338eB27aF420a952574d777598Bbb58c4
 
 # Yakoa Backend Configuration
-YAKOA_BACKEND_URL=http://localhost:5000
+YAKOA_BACKEND_URL=https://seekerip-production-f87d.up.railway.app
 YAKOA_API_KEY=mdZ6ftFaSJ1c1HjkiPmUCFOADHM4V49ZXzo6mD80
 YAKOA_SUBDOMAIN=docs-demo
 YAKOA_NETWORK=docs-demo
@@ -81,7 +81,7 @@ pnpm run test:yakoa
 
 ### Yakoa Backend Settings
 
-- **URL**: `http://localhost:5000` (default)
+- **URL**: `https://seekerip-production-f87d.up.railway.app` (default)
 - **API Key**: `mdZ6ftFaSJ1c1HjkiPmUCFOADHM4V49ZXzo6mD80`
 - **Subdomain**: `docs-demo`
 - **Network**: `docs-demo`
@@ -146,7 +146,7 @@ pnpm run test:yakoa
 
 1. **Yakoa Backend Not Running**
    - Ensure the backend service is started on port 5000
-   - Check the health endpoint: `http://localhost:5000`
+   - Check the health endpoint: `https://seekerip-production-f87d.up.railway.app`
 
 2. **Database Connection Issues**
    - Verify DATABASE_URL is correct
