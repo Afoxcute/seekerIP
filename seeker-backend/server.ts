@@ -41,7 +41,7 @@ app.get('/health/yakoa', async (_req, res) => {
       status: isHealthy ? 'healthy' : 'unhealthy',
       service: 'yakoa-backend',
       timestamp: new Date().toISOString(),
-      yakoaBackendUrl: process.env.YAKOA_BACKEND_URL || 'https://seekerip-production.up.railway.app'
+      yakoaBackendUrl: process.env.YAKOA_BACKEND_URL || 'http://localhost:5000'
     });
   } catch (error: any) {
     res.status(500).json({
@@ -113,7 +113,7 @@ app.use('*', (req, res) => {
 // Start Server
 app.listen(PORT, async () => {
   console.log(`🚀 Seeker Backend server running at http://localhost:${PORT}`);
-  console.log(`🔗 Yakoa Backend URL: ${process.env.YAKOA_BACKEND_URL || 'https://seekerip-production.up.railway.app'}`);
+  console.log(`🔗 Yakoa Backend URL: ${process.env.YAKOA_BACKEND_URL || 'http://localhost:5000'}`);
   console.log(`📊 Health check: http://localhost:${PORT}/health`);
   console.log(`🔍 Yakoa health check: http://localhost:${PORT}/health/yakoa`);
   

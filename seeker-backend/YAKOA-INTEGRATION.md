@@ -60,7 +60,7 @@ Add the following to your `.env` file in `seeker-backend`:
 
 ```env
 # Yakoa Backend Configuration
-YAKOA_BACKEND_URL=https://seekerip-production.up.railway.app
+YAKOA_BACKEND_URL=http://localhost:5000
 YAKOA_API_KEY=mdZ6ftFaSJ1c1HjkiPmUCFOADHM4V49ZXzo6mD80
 
 # Database Configuration
@@ -181,7 +181,7 @@ GET /api/yakoa/status/:tokenId
 
 | Variable | Description | Default |
 |----------|-------------|---------|
-| `YAKOA_BACKEND_URL` | URL of the Yakoa backend service | `https://seekerip-production.up.railway.app` |
+| `YAKOA_BACKEND_URL` | URL of the Yakoa backend service | `http://localhost:5000` |
 | `YAKOA_API_KEY` | API key for Yakoa service | `mdZ6ftFaSJ1c1HjkiPmUCFOADHM4V49ZXzo6mD80` |
 | `DATABASE_URL` | PostgreSQL connection string | Required |
 | `HEDERA_RPC_URL` | Hedera RPC endpoint | `https://testnet.hashio.io/api` |
@@ -229,7 +229,7 @@ curl -X POST http://localhost:3001/api/yakoa/register-all
 curl http://localhost:3001/health
 
 # Yakoa Backend Health
-curl https://seekerip-production.up.railway.app
+curl http://localhost:5000
 ```
 
 ### Logs

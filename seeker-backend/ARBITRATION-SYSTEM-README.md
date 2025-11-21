@@ -72,7 +72,7 @@ ARBITRATION_CONTRACT_ADDRESS=0x0000000000000000000000000000000000000000
 
 # Backend Configuration
 PORT=3001
-YAKOA_BACKEND_URL=https://seekerip-production.up.railway.app
+YAKOA_BACKEND_URL=http://localhost:5000
 YAKOA_API_KEY=your_yakoa_api_key
 ```
 

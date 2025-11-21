@@ -1,4 +1,4 @@
-const API_BASE_URL = 'https://seekerip-production.up.railway.app/api/ip-asset-locker';
+const API_BASE_URL = 'http://localhost:5000/api/ip-asset-locker';
 
 export interface LockedIPAsset {
   ipAssetId: number;
