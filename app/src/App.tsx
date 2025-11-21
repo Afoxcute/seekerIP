@@ -196,16 +196,6 @@ const parseMetadata = async (metadataUri: string) => {
   try {
     console.log('Parsing metadata from URI:', metadataUri);
     
-    // Handle empty or null metadata
-    if (!metadataUri || metadataUri.trim() === '' || metadataUri === '0x') {
-      console.log('Empty metadata URI, returning defaults');
-      return {
-        name: "Unnamed Asset",
-        description: "No description available",
-        image: null
-      };
-    }
-    
     // If metadata is a direct JSON string, parse it
     if (metadataUri.startsWith('{')) {
       const metadata = JSON.parse(metadataUri);
@@ -260,16 +250,16 @@ const parseMetadata = async (metadataUri: string) => {
     // Default fallback
     console.log('Using fallback metadata for URI:', metadataUri);
     return {
-      name: "Unnamed Asset",
+      name: "Unknown",
       description: "No description available",
       image: metadataUri // Use the URI as image if it's not JSON
     };
   } catch (error) {
     console.error('Error parsing metadata:', error);
     return {
-      name: "Unnamed Asset",
+      name: "Unknown",
       description: "No description available",
-      image: null // Use null as fallback image
+      image: metadataUri // Use the URI as image as fallback
     };
   }
 }; 
@@ -653,13 +643,13 @@ export default function App({ thirdwebClient }: AppProps) {
           });
           newIpAssets.set(Number(assetId), {
             owner: ipAsset[1], // owner
-            ipHash: ipAsset[2], // ipHash
-            metadata: ipAsset[3], // metadata
+            ipHash: ipAsset[12], // ipfsHash (mapped to ipHash for compatibility)
+            metadata: ipAsset[4], // metadataURI
             isEncrypted: false, // Default value since contract doesn't have this field
-            isDisputed: ipAsset[5], // isDisputed
-            registrationDate: ipAsset[6], // registrationDate
-            totalRevenue: ipAsset[7], // totalRevenue
-            royaltyTokens: ipAsset[8], // royaltyTokens
+            isDisputed: false, // IPAssetManagerV2 doesn't have isDisputed field
+            registrationDate: ipAsset[5], // createdAt
+            totalRevenue: ipAsset[9], // totalRevenue
+            royaltyTokens: BigInt(0), // IPAssetManagerV2 doesn't have royaltyTokens field
           });
         } catch (error) {
           console.error(`Error loading IP asset ${assetId}:`, error);
@@ -761,13 +751,13 @@ export default function App({ thirdwebClient }: AppProps) {
           if (ipAsset[1] && ipAsset[1] !== "0x0000000000000000000000000000000000000000") {
             allIpAssets.set(assetId, {
               owner: ipAsset[1], // owner
-              ipHash: ipAsset[2], // ipHash
-              metadata: ipAsset[3], // metadata
+              ipHash: ipAsset[12], // ipfsHash (mapped to ipHash for compatibility)
+              metadata: ipAsset[4], // metadataURI
               isEncrypted: false, // Default value since contract doesn't have this field
-              isDisputed: ipAsset[5], // isDisputed
-              registrationDate: ipAsset[6], // registrationDate
-              totalRevenue: ipAsset[7], // totalRevenue
-              royaltyTokens: ipAsset[8], // royaltyTokens
+              isDisputed: false, // IPAssetManagerV2 doesn't have isDisputed field
+              registrationDate: ipAsset[5], // createdAt
+              totalRevenue: ipAsset[9], // totalRevenue
+              royaltyTokens: BigInt(0), // IPAssetManagerV2 doesn't have royaltyTokens field
             });
           }
         } catch (error) {
