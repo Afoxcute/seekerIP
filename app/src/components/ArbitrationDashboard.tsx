@@ -408,7 +408,16 @@ const ArbitrationDashboard: React.FC = () => {
       setLockedAssets(userData.lockedAssets);
       console.log('Locked assets set:', userData.lockedAssets);
     } catch (err) {
-      console.error('Error loading IP Asset Locker data:', err);
+      const errorMessage = err instanceof Error ? err.message : 'Unknown error';
+      console.error('Error loading IP Asset Locker data:', errorMessage);
+      
+      // Check if backend is running
+      if (errorMessage.includes('Backend may not be running')) {
+        console.warn('⚠️ IP Asset Locker backend service is not running. Please start the backend server.');
+        setError('IP Asset Locker service unavailable - backend not running');
+      } else {
+        setError(`Failed to load IP Asset Locker data: ${errorMessage}`);
+      }
     }
   };
 

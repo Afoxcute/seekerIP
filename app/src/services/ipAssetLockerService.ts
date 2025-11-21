@@ -45,22 +45,37 @@ export interface EligibilityDetails {
 }
 
 class IPAssetLockerService {
+  private async handleResponse<T>(response: Response, endpoint: string): Promise<T> {
+    if (!response.ok) {
+      const contentType = response.headers.get('content-type');
+      let errorMessage = `API Error (${response.status}): ${endpoint}`;
+      
+      if (contentType?.includes('application/json')) {
+        try {
+          const error = await response.json();
+          errorMessage = error.error || error.message || errorMessage;
+        } catch {
+          errorMessage = `${errorMessage} - Invalid JSON response`;
+        }
+      } else {
+        errorMessage = `${errorMessage} - Backend may not be running or endpoint not found`;
+      }
+      
+      throw new Error(errorMessage);
+    }
+    
+    const data = await response.json();
+    return data.data || data;
+  }
+
   async getStats(): Promise<IPAssetLockerStats> {
     const response = await fetch(`${API_BASE_URL}/stats`);
-    if (!response.ok) {
-      throw new Error('Failed to fetch IP Asset Locker stats');
-    }
-    const data = await response.json();
-    return data.data;
+    return this.handleResponse<IPAssetLockerStats>(response, '/stats');
   }
 
   async getUserLockedAssets(userAddress: string): Promise<UserLockedAssets> {
     const response = await fetch(`${API_BASE_URL}/user/${userAddress}`);
-    if (!response.ok) {
-      throw new Error('Failed to fetch user locked assets');
-    }
-    const data = await response.json();
-    return data.data;
+    return this.handleResponse<UserLockedAssets>(response, `/user/${userAddress}`);
   }
 
   async lockIPAsset(request: LockIPAssetRequest): Promise<{ transactionHash: string }> {
@@ -72,13 +87,7 @@ class IPAssetLockerService {
       body: JSON.stringify(request),
     });
 
-    if (!response.ok) {
-      const error = await response.json();
-      throw new Error(error.error || 'Failed to lock IP asset');
-    }
-
-    const data = await response.json();
-    return data;
+    return this.handleResponse<{ transactionHash: string }>(response, '/lock');
   }
 
   async unlockIPAsset(request: UnlockIPAssetRequest): Promise<{ transactionHash: string }> {
@@ -90,31 +99,17 @@ class IPAssetLockerService {
       body: JSON.stringify(request),
     });
 
-    if (!response.ok) {
-      const error = await response.json();
-      throw new Error(error.error || 'Failed to unlock IP asset');
-    }
-
-    const data = await response.json();
-    return data;
+    return this.handleResponse<{ transactionHash: string }>(response, '/unlock');
   }
 
   async checkEligibility(ipAssetId: string): Promise<EligibilityResponse> {
     const response = await fetch(`${API_BASE_URL}/eligibility/${ipAssetId}`);
-    if (!response.ok) {
-      throw new Error('Failed to check eligibility');
-    }
-    const data = await response.json();
-    return data.data;
+    return this.handleResponse<EligibilityResponse>(response, `/eligibility/${ipAssetId}`);
   }
 
   async getEligibilityDetails(ipAssetId: string): Promise<EligibilityDetails> {
     const response = await fetch(`${API_BASE_URL}/eligibility-details/${ipAssetId}`);
-    if (!response.ok) {
-      throw new Error('Failed to get eligibility details');
-    }
-    const data = await response.json();
-    return data.data;
+    return this.handleResponse<EligibilityDetails>(response, `/eligibility-details/${ipAssetId}`);
   }
 
   async getAssetStatus(ipAssetId: string): Promise<{
@@ -123,20 +118,13 @@ class IPAssetLockerService {
     owner: string;
   }> {
     const response = await fetch(`${API_BASE_URL}/status/${ipAssetId}`);
-    if (!response.ok) {
-      throw new Error('Failed to get asset status');
-    }
-    const data = await response.json();
-    return data.data;
+    return this.handleResponse<{ isLocked: boolean; lockedAmount: string; owner: string }>(response, `/status/${ipAssetId}`);
   }
 
   async getHBARTokenBalance(userAddress: string): Promise<string> {
     const response = await fetch(`${API_BASE_URL}/balance/${userAddress}`);
-    if (!response.ok) {
-      throw new Error('Failed to get HBAR token balance');
-    }
-    const data = await response.json();
-    return data.data.balance;
+    const data = await this.handleResponse<{ balance: string }>(response, `/balance/${userAddress}`);
+    return data.balance;
   }
 }
 
