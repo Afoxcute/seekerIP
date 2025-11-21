@@ -30,7 +30,36 @@ app.use('/api/ip-asset-locker', ipAssetLockerRoutes);
 
 // Default route (optional)
 app.get('/', (_req, res) => {
-  res.send('✅ Yakoa + Hedera backend is running!');
+  res.json({
+    message: '✅ Yakoa + Hedera + Arbitration backend is running!',
+    version: '1.0.0',
+    endpoints: {
+      register: '/api/register',
+      yakoa: '/api/yakoa',
+      license: '/api/license',
+      arbitration: '/api/arbitration',
+      ipAssetLocker: '/api/ip-asset-locker'
+    }
+  });
+});
+
+// 404 handler - return JSON instead of HTML
+app.use((_req, res) => {
+  res.status(404).json({
+    success: false,
+    error: 'Endpoint not found',
+    message: 'The requested endpoint does not exist. Check the root path for available endpoints.'
+  });
+});
+
+// Error handler
+app.use((err: any, _req: express.Request, res: express.Response, _next: express.NextFunction) => {
+  console.error('Server error:', err);
+  res.status(500).json({
+    success: false,
+    error: 'Internal server error',
+    message: err.message || 'An unexpected error occurred'
+  });
 });
 
 // Start Server
