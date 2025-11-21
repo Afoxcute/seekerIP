@@ -44,6 +44,8 @@ export interface EligibilityDetails {
   alreadyLocked: boolean;
 }
 
+
+//'''
 class IPAssetLockerService {
   private async handleResponse<T>(response: Response, endpoint: string): Promise<T> {
     if (!response.ok) {
