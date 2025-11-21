@@ -672,7 +672,7 @@ export const IPPortfolio: React.FC<IPPortfolioProps> = ({
                       </div>
                       <div className="metric">
                         <span>🎯 Royalty</span>
-                        <span>{Number(asset.royaltyTokens) / 100}%</span>
+                        <span>{Number(asset.royaltyTokens / 100n)}%</span>
                       </div>
                       <div className="metric">
                         <span>📅 Registered</span>
