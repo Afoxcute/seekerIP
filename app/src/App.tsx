@@ -293,6 +293,8 @@ interface IPAsset {
   registrationDate: bigint;
   totalRevenue: bigint;
   royaltyTokens: bigint;
+  name?: string;
+  description?: string;
 }
 
 interface License {
@@ -650,6 +652,8 @@ export default function App({ thirdwebClient }: AppProps) {
             registrationDate: ipAsset[5], // createdAt
             totalRevenue: ipAsset[9], // totalRevenue
             royaltyTokens: BigInt(0), // IPAssetManagerV2 doesn't have royaltyTokens field
+            name: ipAsset[2], // name from contract
+            description: ipAsset[3], // description from contract
           });
         } catch (error) {
           console.error(`Error loading IP asset ${assetId}:`, error);
@@ -666,12 +670,20 @@ export default function App({ thirdwebClient }: AppProps) {
           console.log(`Parsing metadata for token ${id}:`, asset.metadata);
           const metadata = await parseMetadata(asset.metadata);
           console.log(`Successfully parsed metadata for token ${id}:`, metadata);
-          newParsedMetadata.set(id, metadata);
+          
+          // Merge contract name/description with parsed metadata
+          const mergedMetadata = {
+            name: asset.name || metadata.name || "Unknown",
+            description: asset.description || metadata.description || "No description available",
+            ...metadata
+          };
+          
+          newParsedMetadata.set(id, mergedMetadata);
         } catch (error) {
           console.error(`Error parsing metadata for token ${id}:`, error);
           newParsedMetadata.set(id, {
-            name: "Unknown",
-            description: "No description available",
+            name: asset.name || "Unknown",
+            description: asset.description || "No description available",
             image: asset.ipHash // Use the IP hash as fallback image
           });
         }
@@ -758,6 +770,8 @@ export default function App({ thirdwebClient }: AppProps) {
               registrationDate: ipAsset[5], // createdAt
               totalRevenue: ipAsset[9], // totalRevenue
               royaltyTokens: BigInt(0), // IPAssetManagerV2 doesn't have royaltyTokens field
+              name: ipAsset[2], // name from contract
+              description: ipAsset[3], // description from contract
             });
           }
         } catch (error) {
@@ -778,12 +792,20 @@ export default function App({ thirdwebClient }: AppProps) {
           console.log(`Parsing metadata for all asset ${id}:`, asset.metadata);
           const metadata = await parseMetadata(asset.metadata);
           console.log(`Successfully parsed metadata for all asset ${id}:`, metadata);
-          newAllParsedMetadata.set(id, metadata);
+          
+          // Merge contract name/description with parsed metadata
+          const mergedMetadata = {
+            name: asset.name || metadata.name || "Unknown",
+            description: asset.description || metadata.description || "No description available",
+            ...metadata
+          };
+          
+          newAllParsedMetadata.set(id, mergedMetadata);
         } catch (error) {
           console.error(`Error parsing metadata for all asset ${id}:`, error);
           newAllParsedMetadata.set(id, {
-            name: "Unknown",
-            description: "No description available",
+            name: asset.name || "Unknown",
+            description: asset.description || "No description available",
             image: asset.ipHash // Use the IP hash as fallback image
           });
         }
