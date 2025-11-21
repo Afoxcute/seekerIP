@@ -6,7 +6,7 @@ import IPAssetManagerV2ABI from "../abi/IPAssetManagerV2.json";
 // Use the correct IPAssetManagerV2 ABI
 const IP_ASSET_MANAGER_V2_ABI = IPAssetManagerV2ABI.abi as any;
 
-// Hedera Testnet configuration
+// Hedera Testnet configuration with multiple RPC endpoints for fallback
 export const hederaTestnet = {
   id: 296,
   name: 'Hedera Testnet',
@@ -16,6 +16,14 @@ export const hederaTestnet = {
     decimals: 18,
   },
   rpc: 'https://testnet.hashio.io/api',
+  rpcUrls: {
+    default: {
+      http: ['https://testnet.hashio.io/api', 'https://hedera-testnet-rpc.allthatnode.com:8545'],
+    },
+    public: {
+      http: ['https://testnet.hashio.io/api', 'https://hedera-testnet-rpc.allthatnode.com:8545'],
+    },
+  },
   blockExplorers: [{
     name: 'Hedera Testnet Explorer',
     url: 'https://testnet.hashscan.io',

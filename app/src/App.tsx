@@ -13,7 +13,6 @@ import "./components/KYCManagement.css";
 import "./components/EnhancedLicensingManagement.css";
 
 import {
-  defineChain,
   getContract,
   prepareContractCall,
   readContract,
@@ -24,9 +23,9 @@ import {
 import { ConnectButton, useActiveAccount } from "thirdweb/react";
 import { createWallet, inAppWallet } from "thirdweb/wallets";
 import { parseEther, formatEther } from "viem";
-import { hederaTestnet } from "viem/chains";
 import CONTRACT_ADDRESS_JSON from "./deployed_addresses.json";
 import IPAssetManagerV2ABI from "./abi/IPAssetManagerV2.json";
+import { hederaTestnet } from "./services/contractService";
 
 // Backend API configuration
 const BACKEND_URL = "https://seekerip-production.up.railway.app";
@@ -620,7 +619,7 @@ export default function App({ thirdwebClient }: AppProps) {
       const contract = getContract({
         abi: IP_ASSET_MANAGER_V2_ABI,
           client: thirdwebClient,
-          chain: defineChain(hederaTestnet.id),
+          chain: hederaTestnet,
         address: CONTRACT_ADDRESS_JSON["IPAssetManagerV2"],
       });
 
@@ -730,7 +729,7 @@ export default function App({ thirdwebClient }: AppProps) {
       const contract = getContract({
         abi: IP_ASSET_MANAGER_V2_ABI,
         client: thirdwebClient,
-        chain: defineChain(hederaTestnet.id),
+        chain: hederaTestnet,
         address: CONTRACT_ADDRESS_JSON["IPAssetManagerV2"],
       });
 
@@ -1147,7 +1146,7 @@ export default function App({ thirdwebClient }: AppProps) {
         const contract = getContract({
         abi: IP_ASSET_MANAGER_V2_ABI,
             client: thirdwebClient,
-          chain: defineChain(hederaTestnet.id),
+          chain: hederaTestnet,
         address: CONTRACT_ADDRESS_JSON["IPAssetManagerV2"],
         });
 
@@ -1165,7 +1164,7 @@ export default function App({ thirdwebClient }: AppProps) {
 
       await waitForReceipt({
           client: thirdwebClient,
-          chain: defineChain(hederaTestnet.id),
+          chain: hederaTestnet,
           transactionHash: transaction.transactionHash,
         });
 
@@ -1202,7 +1201,7 @@ export default function App({ thirdwebClient }: AppProps) {
         const contract = getContract({
         abi: IP_ASSET_MANAGER_V2_ABI,
           client: thirdwebClient,
-          chain: defineChain(hederaTestnet.id),
+          chain: hederaTestnet,
         address: CONTRACT_ADDRESS_JSON["IPAssetManagerV2"],
         });
 
@@ -1219,7 +1218,7 @@ export default function App({ thirdwebClient }: AppProps) {
 
       await waitForReceipt({
           client: thirdwebClient,
-        chain: defineChain(hederaTestnet.id),
+        chain: hederaTestnet,
           transactionHash: transaction.transactionHash,
         });
 
@@ -1260,7 +1259,7 @@ export default function App({ thirdwebClient }: AppProps) {
             <ConnectButton
               client={thirdwebClient}
               wallets={wallets}
-              chain={defineChain(hederaTestnet.id)}
+              chain={hederaTestnet}
             />
           </div>
         </div>

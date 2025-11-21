@@ -5,7 +5,7 @@ import {
   decodeErrorResult,
 } from "viem";
 
-// Type-Safe Error Handling Interface
+// Type-Safe Error Handling Interface for EVM Transaction Logs
 interface DetailedError {
   type: "DecodedError" | "RawError" | "UnknownError";
   message: string;
@@ -13,7 +13,7 @@ interface DetailedError {
   errorData?: any;
 }
 
-// Advanced Error Extraction Function
+// Advanced Error Extraction Function to decode EVM transaction logs
 export function extractErrorDetails(error: unknown, abi: Abi): DetailedError {
   // Type guard for BaseError
   if (error instanceof BaseError) {
@@ -29,7 +29,7 @@ export function extractErrorDetails(error: unknown, abi: Abi): DetailedError {
         // Attempt to decode error
         if (errorData) {
           try {
-            // Generic error ABI for decoding
+            // Generic error ABI for decoding error data
             const errorAbi = abi;
 
             const decodedError = decodeErrorResult({
