@@ -6,7 +6,6 @@ SeekerIP is a comprehensive decentralized platform for managing intellectual pro
 
 ## Project Details (Hackathon)
 
-### Project Description (max 100 words)
 
 SeekerIP is a decentralized IP management platform on Hedera that lets creators register intellectual property on-chain, mint and manage licenses with programmable royalties, and collect revenue automatically. It combines IPFS-backed asset storage, Hedera Token Service (HTS) for NFT and KYC, multi-level compliance (Basic, Enhanced, Institutional), and enhanced licensing with geographic and exclusivity controls. A community arbitration layer allows staking, dispute raising, and voting. The stack includes React/TypeScript frontend with Thirdweb, Node/Express backend, Solidity smart contracts, Pinata for IPFS, and Prisma for persistence—enabling end-to-end IP registration, licensing, royalties, and dispute resolution on Hedera.
 
@@ -36,6 +35,10 @@ SeekerIP is a decentralized IP management platform on Hedera that lets creators 
 **Live working environment:** [https://darling-axolotl-d3416e.netlify.app/](https://darling-axolotl-d3416e.netlify.app/)
 
 This is the URL to the live working environment of the solution the team has developed.
+
+### Improvements
+
+A key improvement made to the project is **improving the frontend**—enhancing the user interface, landing experience, and overall usability of the SeekerIP application.
 
 ---
 
