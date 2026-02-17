@@ -2,6 +2,43 @@
 
 SeekerIP is a comprehensive decentralized platform for managing intellectual property assets on the Hedera network. Built with React, TypeScript, and Solidity, it provides secure IP asset registration, compliance management, licensing, and KYC enforcement using Hedera Token Service (HTS).
 
+---
+
+## Project Details (Hackathon)
+
+### Project Description (max 100 words)
+
+SeekerIP is a decentralized IP management platform on Hedera that lets creators register intellectual property on-chain, mint and manage licenses with programmable royalties, and collect revenue automatically. It combines IPFS-backed asset storage, Hedera Token Service (HTS) for NFT and KYC, multi-level compliance (Basic, Enhanced, Institutional), and enhanced licensing with geographic and exclusivity controls. A community arbitration layer allows staking, dispute raising, and voting. The stack includes React/TypeScript frontend with Thirdweb, Node/Express backend, Solidity smart contracts, Pinata for IPFS, and Prisma for persistence—enabling end-to-end IP registration, licensing, royalties, and dispute resolution on Hedera.
+
+### Selected Hackathon Track
+
+**Legacy Builders**
+
+### Tech Stack
+
+- **Frontend:** React, TypeScript, Thirdweb SDK, Vite, CSS
+- **Backend:** Node.js, Express, Prisma, SQLite
+- **Smart contracts:** Solidity, Hardhat, Hedera (HTS, system contracts)
+- **Infrastructure & services:** Hedera Testnet, IPFS (Pinata), Viem
+- **Wallet & auth:** Thirdweb Connect (MetaMask, Coinbase, Rabby, Trust, Safe, in-app email/social/passkey)
+- **Compliance & licensing:** Hedera KYC, custom compliance and enhanced licensing managers
+
+---
+
+## Project Demo Video
+
+**Demo video (required for submission):** [https://youtu.be/aLNdsHEtMv0](https://youtu.be/aLNdsHEtMv0)
+
+*A submission without a demo video link will not be scored.*
+
+## Project Demo Link
+
+**Live working environment:** [https://darling-axolotl-d3416e.netlify.app/](https://darling-axolotl-d3416e.netlify.app/)
+
+This is the URL to the live working environment of the solution the team has developed.
+
+---
+
 ## 🎯 Features
 
 ### **Core IP Asset Management**
