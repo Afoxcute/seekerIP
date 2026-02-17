@@ -28,7 +28,7 @@ import CONTRACT_ADDRESS_JSON from "./deployed_addresses.json";
 import IPAssetManagerV2ABI from "./abi/IPAssetManagerV2.json";
 import { hederaTestnet } from "./services/contractService";
 
-// Backend API configuration
+// Backend API 
 const BACKEND_URL = "http://localhost:5000";
 
 // File validation and preview utilities
