@@ -36,6 +36,10 @@ SeekerIP is a decentralized IP management platform on Hedera that lets creators 
 
 This is the URL to the live working environment of the solution the team has developed.
 
+## Pitch Deck
+
+**Pitch deck:** [SeekerIP Pitch Deck (Google Drive)](https://drive.google.com/file/d/1XGEewc9ZyzES5zIn-hoOb4PEmQqy-tpf/view?usp=sharing)
+
 ### Improvements
 
 A key improvement made to the project is **improving the frontend**—enhancing the user interface, landing experience, and overall usability of the SeekerIP application.
