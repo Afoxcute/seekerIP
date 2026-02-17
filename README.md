@@ -28,13 +28,11 @@ SeekerIP is a decentralized IP management platform on Hedera that lets creators 
 
 **Demo video (required for submission):** [https://youtu.be/aLNdsHEtMv0](https://youtu.be/aLNdsHEtMv0)
 
-*A submission without a demo video link will not be scored.*
 
 ## Project Demo Link
 
 **Live working environment:** [https://darling-axolotl-d3416e.netlify.app/](https://darling-axolotl-d3416e.netlify.app/)
 
-This is the URL to the live working environment of the solution the team has developed.
 
 ## Pitch Deck
 
