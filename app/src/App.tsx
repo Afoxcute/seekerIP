@@ -8,6 +8,7 @@ import ArbitrationDashboard from "./components/ArbitrationDashboard";
 import KYCManagement from "./components/KYCManagement";
 import KYCStatusIndicator from "./components/KYCStatusIndicator";
 import EnhancedLicensingManagement from "./components/EnhancedLicensingManagement";
+import { Landing } from "./components/Landing";
 import "./components/IPPortfolio.css";
 import "./components/KYCManagement.css";
 import "./components/EnhancedLicensingManagement.css";
@@ -28,7 +29,7 @@ import IPAssetManagerV2ABI from "./abi/IPAssetManagerV2.json";
 import { hederaTestnet } from "./services/contractService";
 
 // Backend API configuration
-const BACKEND_URL = "https://seekerip-production-f87d.up.railway.app";
+const BACKEND_URL = "http://localhost:5000";
 
 // File validation and preview utilities
 const MAX_FILE_SIZE_MB = 50; // Maximum file size in megabytes
@@ -1272,6 +1273,13 @@ export default function App({ thirdwebClient }: AppProps) {
         </div>
       )}
 
+      {!account?.address ? (
+        <Landing
+          thirdwebClient={thirdwebClient}
+          wallets={wallets}
+          chain={hederaTestnet}
+        />
+      ) : (
       <div className="main-content">
         {/* Dashboard Navigation */}
         <div className="dashboard-nav">
@@ -2006,6 +2014,7 @@ export default function App({ thirdwebClient }: AppProps) {
           </div>
         </section>
       </div>
+      )}
     </div>
   );
 } 
